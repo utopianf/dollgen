@@ -1,11 +1,12 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import {
     Config,
     AllSettings,
     PixelStreaming
 } from '@epicgames-ps/lib-pixelstreamingfrontend-ue5.4';
+import { PixelStreamingContext } from './PixelStreamingProvider';
 
 export interface PixelStreamingWrapperProps {
     initialSettings?: Partial<AllSettings>;
@@ -18,8 +19,9 @@ export const PixelStreamingWrapper = ({
     const videoParent = useRef<HTMLDivElement>(null);
 
     // Pixel streaming library instance is stored into this state variable after initialization:
-    const [pixelStreaming, setPixelStreaming] = useState<PixelStreaming>();
-    
+    // const [pixelStreaming, setPixelStreaming] = useState<PixelStreaming>();
+    const { pixelStreaming, setPixelStreaming } = useContext(PixelStreamingContext)
+
     // A boolean state variable that determines if the Click to play overlay is shown:
     const [clickToPlayVisible, setClickToPlayVisible] = useState(false);
 
@@ -31,7 +33,7 @@ export const PixelStreamingWrapper = ({
             const streaming = new PixelStreaming(config, {
                 videoElementParent: videoParent.current
             });
-            
+
             // register a playStreamRejected handler to show Click to play overlay if needed:
             streaming.addEventListener('playStreamRejected', () => {
                 setClickToPlayVisible(true);
@@ -44,7 +46,7 @@ export const PixelStreamingWrapper = ({
             return () => {
                 try {
                     streaming.disconnect();
-                } catch {}
+                } catch { }
             };
         }
     }, []);

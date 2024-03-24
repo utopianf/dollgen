@@ -1,0 +1,355 @@
+{
+  "head": [
+    {
+      "name": "teeth_lower_close",
+      "label": "teeth_lower_close",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_lower_height",
+      "label": "teeth_lower_height",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_lower_yaeba_r_thickness",
+      "label": "teeth_lower_yaeba_r_thickness",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_lower_round",
+      "label": "teeth_lower_round",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_lower_yaeba_r_height",
+      "label": "teeth_lower_yaeba_r_height",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_lower_yaeba_r_position",
+      "label": "teeth_lower_yaeba_r_position",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_lower_yaeba_r_width",
+      "label": "teeth_lower_yaeba_r_width",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_lower_yaeba_position",
+      "label": "teeth_lower_yaeba_position",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_lower_yaeba_height",
+      "label": "teeth_lower_yaeba_height",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_lower_yaeba_width",
+      "label": "teeth_lower_yaeba_width",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_upper_close",
+      "label": "teeth_upper_close",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_upper_height",
+      "label": "teeth_upper_height",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_upper_yaeba_r_thickness",
+      "label": "teeth_upper_yaeba_r_thickness",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_upper_round",
+      "label": "teeth_upper_round",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_upper_yaeba_r_height",
+      "label": "teeth_upper_yaeba_r_height",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_upper_yaeba_r_position",
+      "label": "teeth_upper_yaeba_r_position",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_upper_yaeba_r_width",
+      "label": "teeth_upper_yaeba_r_width",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_upper_yaeba_position",
+      "label": "teeth_upper_yaeba_position",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_upper_yaeba_height",
+      "label": "teeth_upper_yaeba_height",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "teeth_upper_yaeba_width",
+      "label": "teeth_upper_yaeba_width",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "cheek_maru",
+      "label": "cheek_maru",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "ear_elf",
+      "label": "ear_elf",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "mouse_lowerflatness",
+      "label": "mouse_lowerflatness",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "eye_tsurime",
+      "label": "eye_tsurime",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "mouse_scale_Y",
+      "label": "mouse_scale_Y",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "mouse_scale_X",
+      "label": "mouse_scale_X",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "ear_flat",
+      "label": "ear_flat",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "eye_tareme",
+      "label": "eye_tareme",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "mouse_upperflatness",
+      "label": "mouse_upperflatness",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "mouse_catty",
+      "label": "mouse_catty",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "nose_height",
+      "label": "nose_height",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "eye_close_l",
+      "label": "eye_close_l",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "eye_close_r",
+      "label": "eye_close_r",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "chin_maru",
+      "label": "chin_maru",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "ear_elf_down",
+      "label": "ear_elf_down",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "tsuno_c_thickness",
+      "label": "tsuno_c_thickness",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "tsuno_c_length",
+      "label": "tsuno_c_length",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "tsuno_c_balanceA",
+      "label": "tsuno_c_balanceA",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "tsuno_c_bending",
+      "label": "tsuno_c_bending",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "tsuno_s_thickness",
+      "label": "tsuno_s_thickness",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "tsuno_s_length",
+      "label": "tsuno_s_length",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "tsuno_s_balanceA",
+      "label": "tsuno_s_balanceA",
+      "type": "slider",
+      "value": 0
+    },
+    {
+      "name": "tsuno_s_bending",
+      "label": "tsuno_s_bending",
+      "type": "slider",
+      "value": 0
+    }
+  ],
+  "eyes": [
+    {
+      "name": "base",
+      "type": "tree",
+      "items": [
+        {
+          "name": "base_color1",
+          "label": "color1",
+          "type": "color"
+        },
+        {
+          "name": "base_color2",
+          "label": "color2",
+          "type": "color"
+        },
+        {
+          "name": "base_color2blend",
+          "label": "color2blend",
+          "type": "slider"
+        }
+      ]
+    },
+    {
+      "name": "shadow",
+      "type": "tree",
+      "items": [
+        {
+          "name": "shadow_outerlimwidth",
+          "label": "outerlimwidth",
+          "type": "slider"
+        },
+        {
+          "name": "shadow_outerlimblur",
+          "label": "outerlimblur",
+          "type": "slider"
+        },
+        {
+          "name": "shadow_outerlimopacity",
+          "label": "outerlimopacity",
+          "type": "slider"
+        },
+        {
+          "name": "shadow_upperflatness",
+          "label": "upperflatness",
+          "type": "slider"
+        },
+        {
+          "name": "shadow_upperpacity",
+          "label": "upperpacity",
+          "type": "slider"
+        },
+        {
+          "name": "shadow_upperoffset",
+          "label": "upperoffset",
+          "type": "slider"
+        },
+        {
+          "name": "shadow_upperblur",
+          "label": "upperblur",
+          "type": "slider"
+        }
+      ]
+    }
+  ],
+  "makeover": [
+    {
+      "name": "base",
+      "type":"tree",
+      "items":[
+        {
+          "name": "base_skincolor",
+          "label": "skin color",
+          "type": "color"
+        }
+      ]      
+    },
+    {
+      "name": "eyerush",
+      "type":"tree",
+      "items":[
+        {
+          "name": "eyerush_color",
+          "label": "color",
+          "type": "color"
+        },
+        {
+          "name": "eyerush_opacity",
+          "label": "opacity",
+          "type": "slider"
+        }
+      ]
+    }
+  ]
+}
