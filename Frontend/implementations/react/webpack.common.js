@@ -65,7 +65,7 @@ module.exports = {
       hashFunction: 'xxhash64',
     },
     experiments: {
-      futureDefaults: true
+      futureDefaults: false
     },
 	devServer: {
     	static: {

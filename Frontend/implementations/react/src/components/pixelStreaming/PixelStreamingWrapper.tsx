@@ -24,7 +24,7 @@ export const PixelStreamingWrapper = ({
     // console.log(pixelStreaming)
 
     // A boolean state variable that determines if the Click to play overlay is shown:
-    const [clickToPlayVisible, setClickToPlayVisible] = useState(false);
+    const [clickToPlayVisible, setClickToPlayVisible] = useState(true);
 
     // Run on component mount:
     useEffect(() => {

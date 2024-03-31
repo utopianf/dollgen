@@ -16,23 +16,23 @@ export const App = () => {
                     width: '100%'
                 }}
             >
-                {/* <Main>
-                    <StreamContainer> */}
-                <PixelStreamingWrapper
-                    initialSettings={{
-                        AutoPlayVideo: true,
-                        AutoConnect: true,
-                        ss: 'ws://localhost:80',
-                        StartVideoMuted: true,
-                        HoveringMouse: true,
-                        WaitForStreamer: true
-                    }}
-                />
-                {/* </StreamContainer>
+                <Main>
+                    <StreamContainer>
+                        <PixelStreamingWrapper
+                            initialSettings={{
+                                AutoPlayVideo: true,
+                                AutoConnect: true,
+                                ss: 'ws://localhost:80',
+                                StartVideoMuted: true,
+                                HoveringMouse: true,
+                                WaitForStreamer: true
+                            }}
+                        />
+                    </StreamContainer>
                     <PanelConatainer>
                         <Panel />
                     </PanelConatainer>
-                </Main> */}
+                </Main>
             </div>
         </ParameterProvider>
     );
