@@ -19,8 +19,9 @@ export const PixelStreamingWrapper = ({
     const videoParent = useRef<HTMLDivElement>(null);
 
     // Pixel streaming library instance is stored into this state variable after initialization:
-    // const [pixelStreaming, setPixelStreaming] = useState<PixelStreaming>();
-    const { pixelStreaming, setPixelStreaming } = useContext(PixelStreamingContext)
+    const [pixelStreaming, setPixelStreaming] = useState<PixelStreaming>();
+    // const { pixelStreaming, setPixelStreaming } = useContext(PixelStreamingContext)
+    // console.log(pixelStreaming)
 
     // A boolean state variable that determines if the Click to play overlay is shown:
     const [clickToPlayVisible, setClickToPlayVisible] = useState(false);
