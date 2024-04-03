@@ -6,34 +6,37 @@ import { PixelStreamingWrapper } from './pixelStreaming/PixelStreamingWrapper';
 import { Panel } from './panel/Panel'
 
 import { styled } from '../core/stitches'
+import { PixelStreamingProvider } from './pixelStreaming/PixelStreamingProvider';
 
 export const App = () => {
     return (
         <ParameterProvider>
-            <div
-                style={{
-                    height: '100%',
-                    width: '100%'
-                }}
-            >
-                <Main>
-                    <StreamContainer>
-                        <PixelStreamingWrapper
-                            initialSettings={{
-                                AutoPlayVideo: true,
-                                AutoConnect: true,
-                                ss: 'ws://localhost:80',
-                                StartVideoMuted: true,
-                                HoveringMouse: true,
-                                WaitForStreamer: true
-                            }}
-                        />
-                    </StreamContainer>
-                    <PanelConatainer>
-                        <Panel />
-                    </PanelConatainer>
-                </Main>
-            </div>
+            <PixelStreamingProvider>
+                <div
+                    style={{
+                        height: '100%',
+                        width: '100%'
+                    }}
+                >
+                    <Main>
+                        <StreamContainer>
+                            <PixelStreamingWrapper
+                                initialSettings={{
+                                    AutoPlayVideo: true,
+                                    AutoConnect: true,
+                                    ss: 'ws://app.doll-gen.com',
+                                    StartVideoMuted: true,
+                                    HoveringMouse: true,
+                                    WaitForStreamer: true,
+                                }}
+                            />
+                        </StreamContainer>
+                        <PanelConatainer>
+                            <Panel />
+                        </PanelConatainer>
+                    </Main>
+                </div>
+            </PixelStreamingProvider>
         </ParameterProvider>
     );
 };

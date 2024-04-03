@@ -4,7 +4,8 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import {
     Config,
     AllSettings,
-    PixelStreaming
+    PixelStreaming,
+    Logger
 } from '@epicgames-ps/lib-pixelstreamingfrontend-ue5.4';
 import { PixelStreamingContext } from './PixelStreamingProvider';
 
@@ -19,12 +20,10 @@ export const PixelStreamingWrapper = ({
     const videoParent = useRef<HTMLDivElement>(null);
 
     // Pixel streaming library instance is stored into this state variable after initialization:
-    const [pixelStreaming, setPixelStreaming] = useState<PixelStreaming>();
-    // const { pixelStreaming, setPixelStreaming } = useContext(PixelStreamingContext)
-    // console.log(pixelStreaming)
+    const { pixelStreaming, setPixelStreaming } = useContext(PixelStreamingContext)
 
     // A boolean state variable that determines if the Click to play overlay is shown:
-    const [clickToPlayVisible, setClickToPlayVisible] = useState(true);
+    const [clickToPlayVisible, setClickToPlayVisible] = useState(false);
 
     // Run on component mount:
     useEffect(() => {
@@ -39,6 +38,13 @@ export const PixelStreamingWrapper = ({
             streaming.addEventListener('playStreamRejected', () => {
                 setClickToPlayVisible(true);
             });
+
+            streaming.addResponseEventListener('responseListener', (response) => {
+                Logger.Log(Logger.GetStackTrace(), `Response received: ${response}`, Logger.verboseLogLevel);
+            });
+
+            Logger.Log(Logger.GetStackTrace(), `PixelStreamingWrapper: PixelStreaming instance created: ${streaming}`, Logger.verboseLogLevel);
+            streaming.emitUIInteraction({ "command": "init" })
 
             // Save the library instance into component state so that it can be accessed later:
             setPixelStreaming(streaming);

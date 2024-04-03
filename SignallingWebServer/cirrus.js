@@ -97,7 +97,7 @@ var serverPublicIp;
 // `clientConfig` is send to Streamer and Players
 // Example of STUN server setting
 // let clientConfig = {peerConnectionOptions: { 'iceServers': [{'urls': ['stun:34.250.222.95:19302']}] }};
-var clientConfig = { type: 'config', peerConnectionOptions: {} };
+var clientConfig = { type: 'config', peerConnectionOptions: {'iceServers': [{'urls': ['stun:stun.l.google.com:19302']}]} };
 
 // Parse public server address from command line
 // --publicIp <public address>

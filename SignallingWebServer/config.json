@@ -9,7 +9,7 @@
 	"EnableWebserver": true,
 	"MatchmakerAddress": "",
 	"MatchmakerPort": 9999,
-	"PublicIp": "localhost",
+	"PublicIp": "app.doll-gen.com",
 	"HttpPort": 80,
 	"HttpsPort": 443,
 	"StreamerPort": 8888,
