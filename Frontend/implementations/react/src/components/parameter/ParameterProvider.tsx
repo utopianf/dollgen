@@ -62,13 +62,22 @@ export type DropdownParameter = {
   disabled?: boolean;
 };
 
+export type CheckboxParameter = {
+  tab: string;
+  name: string;
+  group: string;
+  label: string;
+  type: "checkbox";
+  checked: boolean;
+  disabled?: boolean;
+};
 
 export type CheckboxGroupParameter = {
   tab: string;
   name: string;
   group: string;
   label: string;
-  type: "checkbox";
+  type: "checkbox_group";
   items: {
     name: string
     label: string;
@@ -88,7 +97,7 @@ export type CommonParameter = {
   disabled?: boolean;
 };
 
-export type Parameter = ColorParameter | SliderParameter | CommonParameter | SliderDoubleParameter | DropdownParameter | CheckboxGroupParameter;
+export type Parameter = ColorParameter | SliderParameter | CommonParameter | SliderDoubleParameter | DropdownParameter | CheckboxGroupParameter | CheckBoxParameter;
 
 export type Group = {
   tab: string;

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 
-import * as Checkbox from '@radix-ui/react-checkbox';
+import * as _Checkbox from '@radix-ui/react-checkbox';
 import { CheckIcon } from '@radix-ui/react-icons';
 
 import { styled } from '../../core/stitches';
-import ParameterContext, { CheckboxGroupParameter } from '../parameter/ParameterProvider';
+import ParameterContext, { CheckboxGroupParameter, CheckboxParameter } from '../parameter/ParameterProvider';
 
 interface BaseCheckboxProps {
     label: string
@@ -31,9 +31,24 @@ export const BaseCheckbox = ({ label, checked, setChecked }: BaseCheckboxProps) 
     </form>
 );
 
+export const Checkbox = ({ name }: CheckboxGroupProps) => {
+    const { parameters, updateCheckboxParameterValue } = useContext(ParameterContext)
+    const parameter = parameters.find((param) => (param.name === name) && (param.type === "checkbox")) as CheckboxParameter
+
+    if (!parameter) {
+        return null
+    }
+    return (
+        <>
+            <CheckboxLabel>{parameter.label}</CheckboxLabel>
+            <BaseCheckbox label={parameter.label} checked={parameter.checked} setChecked={() => updateCheckboxParameterValue(name, !parameter.checked)} />
+        </>
+    )
+}
+
 export const CheckboxGroup = ({ name }: CheckboxGroupProps) => {
     const { parameters, updateCheckboxParameterValue } = useContext(ParameterContext)
-    const parameter = parameters.find((param) => (param.name === name) && (param.type === "checkbox")) as CheckboxGroupParameter
+    const parameter = parameters.find((param) => (param.name === name) && (param.type === "checkbox_group")) as CheckboxGroupParameter
 
     if (!parameter) {
         return null
@@ -50,7 +65,7 @@ export const CheckboxGroup = ({ name }: CheckboxGroupProps) => {
     )
 }
 
-const CheckboxRoot = styled(Checkbox.Root, {
+const CheckboxRoot = styled(_Checkbox.Root, {
     all: 'unset',
     backgroundColor: 'white',
     width: 18,
@@ -68,7 +83,7 @@ const CheckboxRoot = styled(Checkbox.Root, {
     }
 });
 
-const CheckboxIndicator = styled(Checkbox.Indicator, {
+const CheckboxIndicator = styled(_Checkbox.Indicator, {
     color: "$darkgray",
     [`&[data-state=checked]`]: {
         color: 'white',
