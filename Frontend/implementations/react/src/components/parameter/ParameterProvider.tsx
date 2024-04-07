@@ -96,6 +96,22 @@ export type Group = {
   open: boolean;
 }
 
+export type UENumParameter = {
+  name: string,
+  type: "int" | "float",
+  default: number[],
+  min: number[],
+  max: number[],
+}
+
+export type UEColorParameter = {
+  name: string,
+  type: "color",
+  default: number[],
+}
+
+export type UEParameter = UENumParameter | UEColorParameter;
+
 interface ParameterContextProps {
   parameters: Parameter[];
   groups: Group[];
@@ -106,6 +122,8 @@ interface ParameterContextProps {
   updateCheckboxParameterValue: (parameterName: string, checked: boolean) => void;
   updateDropdownParameterValue: (parameterName: string, value: number | string) => void;
   updateGroupOpen: (groupName: string, open: boolean) => void;
+
+  init: (ueparameters: UEParameter[]) => void;
   reset: (parameterName?: string) => void;
   load: (event: ChangeEvent) => void;
   save: () => void;
@@ -121,6 +139,8 @@ const ParameterContext = createContext<ParameterContextProps>({
   updateCheckboxParameterValue: () => { },
   updateDropdownParameterValue: () => { },
   updateGroupOpen: () => { },
+
+  init: () => { },
   reset: () => { },
   load: () => { },
   save: () => { },
@@ -597,6 +617,40 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
     );
   }
 
+  const init = (ueparameters: UEParameter[]) => {
+    const parameters: Parameter[] = [];
+    const groups: Group[] = [];
+    ueparameters.forEach(param => {
+      if (param.type === 'int' || param.type === 'float') {
+        parameters.push({
+          tab: "ue",
+          group: "all",
+          name: param.name,
+          label: param.name,
+          type: "slider",
+          value: param.default[0],
+          defaultValue: param.default[0],
+        });
+      } else if (param.type === 'color') {
+        parameters.push({
+          tab: "ue",
+          group: "all",
+          name: param.name,
+          label: param.name,
+          type: "color",
+          rValue: param.default[0],
+          gValue: param.default[1],
+          bValue: param.default[2],
+          defaultRValue: param.default[0],
+          defaultGValue: param.default[1],
+          defaultBValue: param.default[2],
+        });
+      }
+    });
+    setParameters(parameters);
+    setGroups(groups);
+  }
+
   const reset = (parameterName?: string) => {
     if (parameterName) {
       setParameters(prevParameters =>
@@ -671,6 +725,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       updateCheckboxParameterValue,
       updateDropdownParameterValue,
       updateGroupOpen,
+      init,
       reset,
       load,
       save

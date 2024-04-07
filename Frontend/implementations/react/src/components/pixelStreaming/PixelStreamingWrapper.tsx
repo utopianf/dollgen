@@ -6,7 +6,7 @@ import {
     AllSettings,
     PixelStreaming,
     Logger
-} from '@epicgames-ps/lib-pixelstreamingfrontend-ue5.4';
+} from '@epicgames-ps/lib-pixelstreamingfrontend-ue5.2';
 import { PixelStreamingContext } from './PixelStreamingProvider';
 
 export interface PixelStreamingWrapperProps {
@@ -43,8 +43,10 @@ export const PixelStreamingWrapper = ({
                 Logger.Log(Logger.GetStackTrace(), `Response received: ${response}`, Logger.verboseLogLevel);
             });
 
-            Logger.Log(Logger.GetStackTrace(), `PixelStreamingWrapper: PixelStreaming instance created: ${streaming}`, Logger.verboseLogLevel);
-            streaming.emitUIInteraction({ "command": "init" })
+            streaming.addEventListener('videoInitialized', () => {
+                Logger.Log(Logger.GetStackTrace(), 'Video initialized', Logger.verboseLogLevel);
+                pixelStreaming?.emitUIInteraction({ command: "init" })
+            })
 
             // Save the library instance into component state so that it can be accessed later:
             setPixelStreaming(streaming);
@@ -56,7 +58,7 @@ export const PixelStreamingWrapper = ({
                 } catch { }
             };
         }
-    }, []);
+    }, [setPixelStreaming]);
 
     return (
         <div
@@ -89,6 +91,7 @@ export const PixelStreamingWrapper = ({
                     onClick={() => {
                         pixelStreaming?.play();
                         setClickToPlayVisible(false);
+                        pixelStreaming?.emitUIInteraction({ command: "init" })
                     }}
                 >
                     <div>Click to play</div>

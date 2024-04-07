@@ -10,8 +10,8 @@ import { PixelStreamingProvider } from './pixelStreaming/PixelStreamingProvider'
 
 export const App = () => {
     return (
-        <ParameterProvider>
-            <PixelStreamingProvider>
+        <PixelStreamingProvider>
+            <ParameterProvider>
                 <div
                     style={{
                         height: '100%',
@@ -27,7 +27,7 @@ export const App = () => {
                                     ss: 'ws://app.doll-gen.com',
                                     StartVideoMuted: true,
                                     HoveringMouse: true,
-                                    WaitForStreamer: true,
+                                    // WaitForStreamer: true,
                                 }}
                             />
                         </StreamContainer>
@@ -36,8 +36,8 @@ export const App = () => {
                         </PanelConatainer>
                     </Main>
                 </div>
-            </PixelStreamingProvider>
-        </ParameterProvider>
+            </ParameterProvider>
+        </PixelStreamingProvider>
     );
 };
 

@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren, createContext, useState } from 'react'
 
-import { PixelStreaming } from '@epicgames-ps/lib-pixelstreamingfrontend-ue5.4'
+import { PixelStreaming } from '@epicgames-ps/lib-pixelstreamingfrontend-ue5.2'
 
 type PixelStreamingContextType = {
   pixelStreaming: PixelStreaming | undefined

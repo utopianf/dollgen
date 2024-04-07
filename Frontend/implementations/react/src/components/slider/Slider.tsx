@@ -5,6 +5,7 @@ import * as SliderPrimitive from '@radix-ui/react-slider'
 
 import { styled } from '../../core/stitches'
 import ParameterContext, { SliderParameter } from '../parameter/ParameterProvider'
+import { PixelStreamingContext } from '../pixelStreaming/PixelStreamingProvider'
 
 interface SliderProps {
   name: string
@@ -19,6 +20,7 @@ interface SliderProps {
 export const Slider = (props: SliderProps) => {
   const { name, label, minLabel, maxLabel, defaultValue, orientation, disabled } = props
   const { parameters, updateSliderParameterValue } = useContext(ParameterContext)
+  const { pixelStreaming } = useContext(PixelStreamingContext)
 
   // 対応するパラメータを見つけ、その値を設定します。
   const parameter = parameters.find((param) => param.name === name && param.type === "slider")

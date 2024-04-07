@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 import { Label } from '@radix-ui/react-label';
-import * as Select from '@radix-ui/react-select';
+import * as _Select from '@radix-ui/react-select';
 import { SelectItemProps } from '@radix-ui/react-select';
 
 import { styled } from '../../core/stitches'
 import ParameterContext, { DropdownParameter } from '../parameter/ParameterProvider';
 
-export const BaseHeadSelect = ({ name }: { name: string }) => {
+export const Select = ({ name }: { name: string }) => {
     const { parameters, updateDropdownParameterValue } = useContext(ParameterContext)
 
     // 対応するパラメータを見つけ、その値を設定します。
@@ -20,14 +20,14 @@ export const BaseHeadSelect = ({ name }: { name: string }) => {
     return (
         <>
             <SelectLabel htmlFor={parameter.label}>{parameter.label}</SelectLabel>
-            <Select.Root defaultValue='DG9-01' onValueChange={(value) => { updateDropdownParameterValue(name, value) }}>
+            <_Select.Root defaultValue='DG9-01' onValueChange={(value) => { updateDropdownParameterValue(name, value) }}>
                 <SelectTrigger id={parameter.label} aria-label={parameter.label} disabled={parameter.disabled}>
-                    <Select.Value />
+                    <_Select.Value />
                     <SelectIcon>
                         <ChevronDownIcon />
                     </SelectIcon>
                 </SelectTrigger>
-                <Select.Portal>
+                <_Select.Portal>
                     <SelectContent>
                         <SelectScrollUpButton>
                             <ChevronUpIcon />
@@ -44,8 +44,8 @@ export const BaseHeadSelect = ({ name }: { name: string }) => {
                             <ChevronDownIcon />
                         </SelectScrollDownButton>
                     </SelectContent>
-                </Select.Portal>
-            </Select.Root>
+                </_Select.Portal>
+            </_Select.Root>
         </>
     );
 }
@@ -60,7 +60,7 @@ const SelectLabel = styled(Label, {
     color: "$lightgray",
 });
 
-const SelectTrigger = styled(Select.SelectTrigger, {
+const SelectTrigger = styled(_Select.SelectTrigger, {
     all: 'unset',
     display: 'inline-flex',
     alignItems: 'center',
@@ -79,12 +79,12 @@ const SelectTrigger = styled(Select.SelectTrigger, {
     // '&[data-placeholder]': { color: violet.violet9 },
 });
 
-const SelectIcon = styled(Select.SelectIcon, {
+const SelectIcon = styled(_Select.SelectIcon, {
     // color: violet.violet11,
     borderColor: '$darkgray',
 });
 
-const SelectContent = styled(Select.Content, {
+const SelectContent = styled(_Select.Content, {
     overflow: 'hidden',
     backgroundColor: 'white',
     borderRadius: 6,
@@ -92,14 +92,14 @@ const SelectContent = styled(Select.Content, {
         '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
 });
 
-const SelectViewport = styled(Select.Viewport, {
+const SelectViewport = styled(_Select.Viewport, {
     padding: 5,
 });
 
 const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(({ children, ...props }, ref) => {
     return (
         <StyledItem {...props} ref={ref}>
-            <Select.ItemText>{children}</Select.ItemText>
+            <_Select.ItemText>{children}</_Select.ItemText>
             <StyledItemIndicator>
                 <CheckIcon />
             </StyledItemIndicator>
@@ -108,7 +108,7 @@ const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(({ children
 });
 
 
-const StyledItem = styled(Select.Item, {
+const StyledItem = styled(_Select.Item, {
     fontSize: 13,
     lineHeight: 1,
     color: "$",
@@ -133,7 +133,7 @@ const StyledItem = styled(Select.Item, {
 });
 
 
-const StyledItemIndicator = styled(Select.ItemIndicator, {
+const StyledItemIndicator = styled(_Select.ItemIndicator, {
     position: 'absolute',
     left: 0,
     width: 25,
@@ -152,8 +152,8 @@ const scrollButtonStyles = {
     cursor: 'default',
 };
 
-const SelectScrollUpButton = styled(Select.ScrollUpButton, scrollButtonStyles);
+const SelectScrollUpButton = styled(_Select.ScrollUpButton, scrollButtonStyles);
 
-const SelectScrollDownButton = styled(Select.ScrollDownButton, scrollButtonStyles);
+const SelectScrollDownButton = styled(_Select.ScrollDownButton, scrollButtonStyles);
 
 export default BaseHeadSelect;
