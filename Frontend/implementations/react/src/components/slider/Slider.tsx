@@ -11,6 +11,9 @@ interface SliderProps {
   name: string
   label: string
   defaultValue: number
+  min?: number
+  max?: number
+  step?: number
   maxLabel?: string
   minLabel?: string
   disabled?: boolean

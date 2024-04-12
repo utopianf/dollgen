@@ -1,49 +1,41 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 
+import { Label } from '@radix-ui/react-label'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
-import { styled } from '../../core/stitches'
 
-import { ColorPicker } from '../colorpicker/ColorPicker'
-import ParameterContext from '../parameter/ParameterProvider'
+import { styled } from '../../core/stitches'
+import { Checkbox } from '../checkbox/Checkbox'
+import { Select } from '../select/BaseSelect'
 import { Slider } from '../slider/Slider'
 import { Tree } from '../tree/Tree'
+import ParameterContext from '../parameter/ParameterProvider'
 
 export const EyesTab = () => {
+  const tabName = "eyes"
   const { parameters } = useContext(ParameterContext)
-  const eyes_parameters = parameters.filter((param) => param.tab === 'eyes')
-  const trees = [
-    {
-      name: 'Eye',
-      parameters: eyes_parameters.filter((param) => param.group === 'eye'),
-    },
-    {
-      name: "Eye Rush",
-      parameters: eyes_parameters.filter((param) => param.group === 'eyerush'),
-    },
-    {
-      name: 'Other',
-      parameters: eyes_parameters.filter((param) => param.group !== 'eye'),
-    },
-  ]
+  const headParameters = parameters.filter((param) => param.tab === tabName)
+  const headGroups = [...new Set(headParameters.map((param) => param.group))]
+
   return (
     <ScrollAreaRoot>
       <ScrollAreaViewport>
         <Flex>
-          {trees.map((tree) => (
-            <Tree label={tree.name}>
-              {tree.parameters.map((p) => {
-                if (p.type === "slider") {
-                  return (
-                    <Slider name={p.name} label={p.label} defaultValue={0} />
-                  )
-                } else if (p.type === "color") {
-                  return (
-                    <ColorPicker name={p.name} label={p.label} />
-                  )
+          {headGroups.map((group) =>
+            <Tree label={group}>
+              {headParameters.filter((param) => param.group === group).map((param) => {
+                switch (param.type) {
+                  case "dropdown":
+                    return <Select name={param.name} />
+                  case "slider":
+                    return <Slider key={param.name} name={param.name} label={param.label} min={param.min} max={param.max} defaultValue={param.defaultValue} />
+                  case "checkbox":
+                    return <Checkbox key={param.name} name={param.name} />
+                  default:
+                    return <></>
                 }
               })}
             </Tree>
-          ))}
+          )}
         </Flex>
       </ScrollAreaViewport>
       <ScrollAreaScrollbar orientation="vertical">
@@ -57,10 +49,24 @@ export const EyesTab = () => {
   )
 }
 
+const CheckboxLabel = styled(Label, {
+  fontSize: 13,
+  lineHeight: 1,
+  fontWeight: 500,
+  marginBottom: 5,
+  display: 'block',
+})
+
 const Flex = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '10px',
+})
+
+const FlexRow = styled('div', {
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 25
 })
 
 const ScrollAreaRoot = styled(ScrollArea.Root, {

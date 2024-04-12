@@ -4,13 +4,14 @@ import { Label } from '@radix-ui/react-label'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 
 import { styled } from '../../core/stitches'
-import { BaseCheckbox } from '../checkbox/Checkbox'
+import { Checkbox } from '../checkbox/Checkbox'
 import { Select } from '../select/BaseSelect'
 import { Slider } from '../slider/Slider'
 import { Tree } from '../tree/Tree'
 import ParameterContext from '../parameter/ParameterProvider'
 
-export const HeadTab = (tabName: string = "head") => {
+export const HeadTab = () => {
+  const tabName = "head"
   const { parameters } = useContext(ParameterContext)
   const headParameters = parameters.filter((param) => param.tab === tabName)
   const headGroups = [...new Set(headParameters.map((param) => param.group))]
@@ -26,9 +27,9 @@ export const HeadTab = (tabName: string = "head") => {
                   case "dropdown":
                     return <Select name={param.name} />
                   case "slider":
-                    return <Slider key={param.name} name={param.name} label={param.label} min={param.min} max={param.max} step={param.step} />
+                    return <Slider key={param.name} name={param.name} label={param.label} min={param.min} max={param.max} defaultValue={param.defaultValue} />
                   case "checkbox":
-                    return <BaseCheckbox key={param.name} name={param.name} label={param.label} />
+                    return <Checkbox key={param.name} name={param.name} />
                   default:
                     return <></>
                 }

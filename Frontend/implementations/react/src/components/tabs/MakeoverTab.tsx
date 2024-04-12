@@ -1,42 +1,40 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 
+import { Label } from '@radix-ui/react-label'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 
 import { styled } from '../../core/stitches'
-import ParameterContext from '../parameter/ParameterProvider'
+import { Checkbox } from '../checkbox/Checkbox'
+import { Select } from '../select/BaseSelect'
 import { Slider } from '../slider/Slider'
-import { SliderDouble } from '../slider/SliderDouble'
 import { Tree } from '../tree/Tree'
-
+import ParameterContext from '../parameter/ParameterProvider'
 
 export const MakeoverTab = () => {
+  const tabName = "makeover"
   const { parameters } = useContext(ParameterContext)
-  const makeover_parameters = parameters.filter((param) => param.tab === 'makeover')
+  const headParameters = parameters.filter((param) => param.tab === tabName)
+  const headGroups = [...new Set(headParameters.map((param) => param.group))]
 
-  // get unique group names
-  const uniqueGroups = [...new Set(makeover_parameters.map((param) => param.group))]
   return (
     <ScrollAreaRoot>
       <ScrollAreaViewport>
         <Flex>
-          {uniqueGroups.map((group) => {
-            const parameters = makeover_parameters.filter((param) => param.group === group)
-            return (
-              <Tree label={group}>
-                {parameters.map((p) => {
-                  if (p.type === "slider") {
-                    return (
-                      <Slider name={p.name} label={p.label} defaultValue={p.value ?? 0} />
-                    )
-                  } else if (p.type === "slider_double") {
-                    return (
-                      <SliderDouble name={p.name} label={p.label} defaultValue={p.values ?? [0, 0]} />
-                    )
-                  }
-                })}
-              </Tree>
-            )
-          }
+          {headGroups.map((group) =>
+            <Tree label={group}>
+              {headParameters.filter((param) => param.group === group).map((param) => {
+                switch (param.type) {
+                  case "dropdown":
+                    return <Select name={param.name} />
+                  case "slider":
+                    return <Slider key={param.name} name={param.name} label={param.label} min={param.min} max={param.max} defaultValue={param.defaultValue} />
+                  case "checkbox":
+                    return <Checkbox key={param.name} name={param.name} />
+                  default:
+                    return <></>
+                }
+              })}
+            </Tree>
           )}
         </Flex>
       </ScrollAreaViewport>
@@ -51,10 +49,24 @@ export const MakeoverTab = () => {
   )
 }
 
+const CheckboxLabel = styled(Label, {
+  fontSize: 13,
+  lineHeight: 1,
+  fontWeight: 500,
+  marginBottom: 5,
+  display: 'block',
+})
+
 const Flex = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '10px',
+})
+
+const FlexRow = styled('div', {
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 25
 })
 
 const ScrollAreaRoot = styled(ScrollArea.Root, {

@@ -1,0 +1,383 @@
+{
+    "parameters": [
+        {},
+        {
+            "name": "$outputsize",
+            "type": "int",
+            "min": [
+                0,
+            ],
+            "max": [
+                1,
+            ]
+        },
+        {
+            "name": "$outputsize",
+            "type": "int",
+            "min": [
+                0,
+            ],
+            "max": [
+                1,
+                1
+            ]
+        },
+        {
+            "name": "$outputsize",
+            "type": "int",
+            "min": [
+                1,
+                10
+            ],
+            "max": [
+                1,
+            ]
+        },
+        {
+            "name": "$outputsize",
+            "type": "int",
+            "min": [
+                1,
+                10
+            ],
+            "max": [
+                1,
+                1
+            ]
+        },
+        {
+            "name": "$randomseed",
+            "type": "int",
+            "min": [
+                0
+            ],
+            "max": [
+                1
+            ]
+        },
+        {
+            "name": "shadow_ring_opacity",
+            "type": "float",
+            "min": [
+                0.0,
+            ],
+            "max": [
+                1.0,
+            ]
+        },
+        {
+            "name": "eyebase_colorgenerator_blend",
+            "type": "float",
+            "min": [
+                0.3,
+            ],
+            "max": [
+                0.7,
+            ]
+        },
+        {
+            "name": "eyebase_colorgenerator_color1",
+            "type": "color"
+        },
+        {
+            "name": "eyebase_colorgenerator_color2",
+            "type": "color"
+        },
+        {
+            "name": "eyebase_colorgenerator_gradationonoff",
+            "type": "int",
+            "min": [
+                1
+            ],
+            "max": [
+                2
+            ]
+        },
+        {
+            "name": "softlight_color",
+            "type": "color"
+        },
+        {
+            "name": "softlight_scale",
+            "type": "float",
+            "min": [
+                0.0,
+                0.0,
+            ],
+            "max": [
+                1.0,
+                1.0,
+            ]
+        },
+        {
+            "name": "softlight_position",
+            "type": "float",
+            "min": [
+                0.0,
+                0.0,
+            ],
+            "max": [
+                1.0,
+                1.0,
+            ]
+        },
+        {
+            "name": "softlight_blurintensity",
+            "type": "float",
+            "min": [
+                0.0,
+            ],
+            "max": [
+                16.0,
+            ]
+        },
+        {
+            "name": "softlight_opacity",
+            "type": "float",
+            "min": [
+                0.0,
+            ],
+            "max": [
+                1.0,
+            ]
+        },
+        {
+            "name": "shadow_colorgenerator_blend",
+            "type": "float",
+            "min": [
+                0.3,
+            ],
+            "max": [
+                0.7,
+            ]
+        },
+        {
+            "name": "shadow_colorgenerator_color1",
+            "type": "color"
+        },
+        {
+            "name": "shadow_colorgenerator_color2",
+            "type": "color"
+        },
+        {
+            "name": "shadow_colorgenerator_gradationonoff",
+            "type": "int",
+            "min": [
+                1
+            ],
+            "max": [
+                2
+            ]
+        },
+        {
+            "name": "shadow_largeround_offset",
+            "type": "float",
+            "min": [
+                -0.25,
+            ],
+            "max": [
+                0.25,
+            ]
+        },
+        {
+            "name": "shadow_largeround_roundness",
+            "type": "float",
+            "min": [
+                -40.0,
+            ],
+            "max": [
+                40.0,
+            ]
+        },
+        {
+            "name": "shadow_largeround_blurintensity",
+            "type": "float",
+            "min": [
+                0.0,
+            ],
+            "max": [
+                16.0,
+            ]
+        },
+        {
+            "name": "shadow_ring_radius",
+            "type": "float",
+            "min": [
+                -0.15,
+            ],
+            "max": [
+                0.15,
+            ]
+        },
+        {
+            "name": "shadow_ring_scale",
+            "type": "float",
+            "min": [
+                0.0,
+                0.0,
+            ],
+            "max": [
+                1.0,
+                1.0,
+            ]
+        },
+        {
+            "name": "shadow_ring_blurintensity",
+            "type": "float",
+            "min": [
+                0.0,
+            ],
+            "max": [
+                16.0,
+            ]
+        },
+        {
+            "name": "shadow_opacity",
+            "type": "float",
+            "min": [
+                0.0,
+            ],
+            "max": [
+                1.0,
+            ]
+        },
+        {
+            "name": "iris_patterngenerator_patternselection",
+            "type": "int",
+            "min": [
+                1
+            ],
+            "max": [
+                8
+            ]
+        },
+        {
+            "name": "iris_blurintensity",
+            "type": "float",
+            "min": [
+                0.0,
+            ],
+            "max": [
+                16.0,
+            ]
+        },
+        {
+            "name": "iris_colorgenerator_blend",
+            "type": "float",
+            "min": [
+                0.3,
+            ],
+            "max": [
+                0.7,
+            ]
+        },
+        {
+            "name": "iris_colorgenerator_color1",
+            "type": "color"
+        },
+        {
+            "name": "iris_colorgenerator_color2",
+            "type": "color"
+        },
+        {
+            "name": "iris_colorgenerator_gradationonoff",
+            "type": "int",
+            "min": [
+                1
+            ],
+            "max": [
+                2
+            ]
+        },
+        {
+            "name": "iris_opacity",
+            "type": "float",
+            "min": [
+                0.0,
+            ],
+            "max": [
+                1.0,
+            ]
+        },
+        {
+            "name": "outerlim_opacity",
+            "type": "float",
+            "min": [
+                0.0,
+            ],
+            "max": [
+                1.0,
+            ]
+        },
+        {
+            "name": "outerlim_colorgenerator_blend",
+            "type": "float",
+            "min": [
+                0.3,
+            ],
+            "max": [
+                0.7,
+            ]
+        },
+        {
+            "name": "outerlim_colorgenerator_color1",
+            "type": "color"
+        },
+        {
+            "name": "outerlim_colorgenerator_color2",
+            "type": "color"
+        },
+        {
+            "name": "outerlim_colorgenerator_gradationonoff",
+            "type": "int",
+            "min": [
+                1
+            ],
+            "max": [
+                2
+            ]
+        },
+        {
+            "name": "overall_scale",
+            "type": "float",
+            "min": [
+                0.0,
+                0.0,
+            ],
+            "max": [
+                1.0,
+                1.0,
+            ]
+        },
+        {
+            "name": "overall_size",
+            "type": "float",
+            "min": [
+                0.0,
+            ],
+            "max": [
+                1.0,
+            ]
+        },
+        {
+            "name": "iris_patterngenerator_scaleX",
+            "type": "float",
+            "min": [
+                0.0,
+            ],
+            "max": [
+                1.0,
+            ]
+        },
+        {
+            "name": "iris_patterngenerator_scaleY",
+            "type": "float",
+            "min": [
+                0.0,
+            ],
+            "max": [
+                1.0,
+            ]
+        }
+    ]
+}

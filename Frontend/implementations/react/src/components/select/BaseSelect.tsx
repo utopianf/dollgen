@@ -155,5 +155,3 @@ const scrollButtonStyles = {
 const SelectScrollUpButton = styled(_Select.ScrollUpButton, scrollButtonStyles);
 
 const SelectScrollDownButton = styled(_Select.ScrollDownButton, scrollButtonStyles);
-
-export default BaseHeadSelect;

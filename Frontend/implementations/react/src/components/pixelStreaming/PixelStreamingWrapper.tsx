@@ -8,6 +8,7 @@ import {
     Logger
 } from '@epicgames-ps/lib-pixelstreamingfrontend-ue5.2';
 import { PixelStreamingContext } from './PixelStreamingProvider';
+import ParameterContext from '../parameter/ParameterProvider';
 
 export interface PixelStreamingWrapperProps {
     initialSettings?: Partial<AllSettings>;
@@ -16,6 +17,7 @@ export interface PixelStreamingWrapperProps {
 export const PixelStreamingWrapper = ({
     initialSettings
 }: PixelStreamingWrapperProps) => {
+    const { init } = useContext(ParameterContext)
     // A reference to parent div element that the Pixel Streaming library attaches into:
     const videoParent = useRef<HTMLDivElement>(null);
 
@@ -41,6 +43,7 @@ export const PixelStreamingWrapper = ({
 
             streaming.addResponseEventListener('responseListener', (response) => {
                 Logger.Log(Logger.GetStackTrace(), `Response received: ${response}`, Logger.verboseLogLevel);
+                init(JSON.parse(response).parameters)
             });
 
             streaming.addEventListener('videoInitialized', () => {
