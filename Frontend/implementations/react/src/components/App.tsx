@@ -24,7 +24,8 @@ export const App = () => {
                                 initialSettings={{
                                     AutoPlayVideo: true,
                                     AutoConnect: true,
-                                    ss: 'ws://localhost:8080',
+                                    // ss: 'ws://localhost',
+                                    ss: 'ws://app.doll-gen.com',
                                     StartVideoMuted: true,
                                     HoveringMouse: true,
                                     // WaitForStreamer: true,

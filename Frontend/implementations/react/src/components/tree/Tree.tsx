@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react'
+import { FC, PropsWithChildren, useState } from 'react'
 
 import * as Collapsible from '@radix-ui/react-collapsible'
 
@@ -12,7 +12,8 @@ interface TreeProps extends PropsWithChildren {
   setOpen?: (open: boolean) => void
 }
 
-export const Tree: FC<TreeProps> = ({ children, label, disabled, open, setOpen }) => {
+export const Tree: FC<TreeProps> = ({ children, label, disabled, }) => {
+  const [open, setOpen] = useState(true)
   return (
     <CollapsibleRoot open={open} onOpenChange={setOpen} disabled={disabled}>
       <Flex>

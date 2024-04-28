@@ -38,8 +38,8 @@ export type SliderDoubleParameter = {
   group: string;
   label: string;
   type: "slider_double";
-  min?: number[];
-  max?: number[];
+  min?: number;
+  max?: number;
   values: number[];
   defaultValues: number[];
   disabled?: boolean;
@@ -218,56 +218,56 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
     {
       "tab": "head",
       "group": "ベース",
-      "name": "systemparam",
+      "name": "righteye_open",
       "label": "右目は開ける？",
       "type": "checkbox",
     },
     {
       "tab": "head",
       "group": "ベース",
-      "name": "systemparam",
+      "name": "lefteye_open",
       "label": "左目は開ける？",
       "type": "checkbox",
     },
     {
       "tab": "head",
       "group": "ベース",
-      "name": "systemparam",
+      "name": "ear_exist",
       "label": "耳はあり？",
       "type": "checkbox",
     },
     {
       "tab": "head",
       "group": "ベース",
-      "name": "systemparam",
+      "name": "mouth_open",
       "label": "開口する？",
       "type": "checkbox",
     },
     {
       "tab": "head",
       "group": "ベース",
-      "name": "systemparam",
+      "name": "upper_teeth_exist",
       "label": "上歯はあり？",
       "type": "checkbox",
     },
     {
       "tab": "head",
       "group": "ベース",
-      "name": "systemparam",
+      "name": "lower_teeth_exist",
       "label": "下歯はあり？",
       "type": "checkbox",
     },
     {
       "tab": "head",
       "group": "ベース",
-      "name": "systemparam",
+      "name": "tongue_exist",
       "label": "舌はあり？",
       "type": "checkbox",
     },
     {
       "tab": "head",
       "group": "ベース",
-      "name": "systemparam",
+      "name": "tsuno_exist",
       "label": "角はあり？",
       "type": "checkbox",
     },
@@ -299,11 +299,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "label": "鼻の幅",
       "type": "slider",
     },
-
-
-
-
-
     {
       "tab": "head",
       "group": "アイホール",
@@ -346,11 +341,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "label": "下まぶたの平坦さ",
       "type": "slider",
     },
-
-
-
-
-
     {
       "tab": "head",
       "group": "耳",
@@ -372,11 +362,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "label": "エルフ耳下がり",
       "type": "slider",
     },
-
-
-
-
-
     {
       "tab": "head",
       "group": "口",
@@ -419,11 +404,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "label": "下側の平坦さ",
       "type": "slider",
     },
-
-
-
-
-
     {
       "tab": "head",
       "group": "歯",
@@ -509,11 +489,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "label": "下側の犬歯太さ",
       "type": "slider",
     },
-
-
-
-
-
     {
       "tab": "head",
       "group": "舌",
@@ -549,11 +524,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "label": "先端の細さ",
       "type": "slider",
     },
-
-
-
-
-
     {
       "tab": "head",
       "group": "角",
@@ -700,11 +670,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "type": "slider",
       "value": 50
     },
-
-
-
-
-
     {
       "tab": "makeover",
       "group": "アイライン",
@@ -936,11 +901,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "label": "左下-位置",
       "type": "slider_double",
     },
-
-
-
-
-
     {
       "tab": "makeover",
       "group": "チーク",
@@ -2957,7 +2917,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
           if (pixelStreaming) {
             pixelStreaming.emitUIInteraction({
               parameter: parameterName,
-              defaultValue: value,
               value: value,
             })
           }
@@ -2986,7 +2945,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
-
   const updateCommonParameterValue = (parameterName: string, value: number) => {
     setParameters(prevParameters =>
       prevParameters.map(param => {
@@ -3005,7 +2963,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       })
     );
   };
-
 
   const updateColorParameterValue = (parameterName: string, rValue: number, gValue: number, bValue: number) => {
     setParameters(prevParameters =>
@@ -3072,19 +3029,23 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const init = (ueparameters: UEParameter[]) => {
-    const parameters: Parameter[] = [];
-    const groups: Group[] = [];
-    ueparameters.forEach(param => {
-      const ps = parameters.filter(p => p.name === param.name)
+    ueparameters.forEach(up => {
+      const ps = parameters.filter(p => p.name === up.name)
       if (ps.length == 1) {
         const p = ps[0]
-        console.log(p, param)
+        console.log(p, up)
         if (p.type === "slider") {
-
-          updateSliderParameterValue(p.name, param.default)
+          setParameters(prevParameters =>
+            prevParameters.map(_p => {
+              if (up.name !== _p.name) return _p;
+              console.log({ ..._p, value: up.default[0], min: up.min[0], max: up.max[0] })
+              return { ..._p, value: up.default[0], min: up.min[0], max: up.max[0] };
+            })
+          );
         }
       }
     })
+    console.log(parameters)
   }
 
   const reset = (parameterName?: string) => {

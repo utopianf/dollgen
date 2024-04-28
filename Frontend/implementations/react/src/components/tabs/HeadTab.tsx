@@ -7,6 +7,7 @@ import { styled } from '../../core/stitches'
 import { Checkbox } from '../checkbox/Checkbox'
 import { Select } from '../select/BaseSelect'
 import { Slider } from '../slider/Slider'
+import { SliderDouble } from '../slider/SliderDouble'
 import { Tree } from '../tree/Tree'
 import ParameterContext from '../parameter/ParameterProvider'
 
@@ -30,6 +31,8 @@ export const HeadTab = () => {
                     return <Slider key={param.name} name={param.name} label={param.label} min={param.min} max={param.max} defaultValue={param.defaultValue} />
                   case "checkbox":
                     return <Checkbox key={param.name} name={param.name} />
+                  case "slider_double":
+                    return <SliderDouble key={param.name} name={param.name} label={param.label} min={param.min} max={param.max} defaultValue={param.defaultValues} />
                   default:
                     return <></>
                 }

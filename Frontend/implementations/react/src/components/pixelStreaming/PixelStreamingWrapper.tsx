@@ -30,6 +30,7 @@ export const PixelStreamingWrapper = ({
     // Run on component mount:
     useEffect(() => {
         if (videoParent.current) {
+            console.log('PixelStreamingWrapper: videoParent.current', videoParent.current)
             // Attach Pixel Streaming library to videoParent element:
             const config = new Config({ initialSettings });
             const streaming = new PixelStreaming(config, {
@@ -42,14 +43,9 @@ export const PixelStreamingWrapper = ({
             });
 
             streaming.addResponseEventListener('responseListener', (response) => {
-                Logger.Log(Logger.GetStackTrace(), `Response received: ${response}`, Logger.verboseLogLevel);
+                // Logger.Log(Logger.GetStackTrace(), `Response received: ${response}`, Logger.verboseLogLevel);
                 init(JSON.parse(response).parameters)
             });
-
-            streaming.addEventListener('videoInitialized', () => {
-                Logger.Log(Logger.GetStackTrace(), 'Video initialized', Logger.verboseLogLevel);
-                pixelStreaming?.emitUIInteraction({ command: "init" })
-            })
 
             // Save the library instance into component state so that it can be accessed later:
             setPixelStreaming(streaming);
@@ -61,7 +57,7 @@ export const PixelStreamingWrapper = ({
                 } catch { }
             };
         }
-    }, [setPixelStreaming]);
+    }, []);
 
     return (
         <div
@@ -92,9 +88,11 @@ export const PixelStreamingWrapper = ({
                         cursor: 'pointer'
                     }}
                     onClick={() => {
-                        pixelStreaming?.play();
-                        setClickToPlayVisible(false);
-                        pixelStreaming?.emitUIInteraction({ command: "init" })
+                        if (clickToPlayVisible && pixelStreaming) {
+                            pixelStreaming.play();
+                            setClickToPlayVisible(false);
+                            pixelStreaming.emitUIInteraction({ command: "init" })
+                        }
                     }}
                 >
                     <div>Click to play</div>

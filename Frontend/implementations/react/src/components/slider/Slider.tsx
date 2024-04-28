@@ -21,7 +21,7 @@ interface SliderProps {
 }
 
 export const Slider = (props: SliderProps) => {
-  const { name, label, minLabel, maxLabel, defaultValue, orientation, disabled } = props
+  const { name, label, minLabel, maxLabel, defaultValue, orientation, disabled, min, max } = props
   const { parameters, updateSliderParameterValue } = useContext(ParameterContext)
   const { pixelStreaming } = useContext(PixelStreamingContext)
 
@@ -39,9 +39,9 @@ export const Slider = (props: SliderProps) => {
         orientation={orientation}
         value={[value]}
         defaultValue={[defaultValue]}
-        min={0}
-        max={100}
-        step={1}
+        min={min}
+        max={max}
+        step={(max - min) / 100.0}
         aria-label="Volume"
         id={`slider-${name}`}
         onValueChange={(value) => {
@@ -58,7 +58,7 @@ export const Slider = (props: SliderProps) => {
           updateSliderParameterValue(name, newValue)
         }}
       />
-    </SliderContainer>
+    </SliderContainer >
   )
 }
 

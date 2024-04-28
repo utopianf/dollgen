@@ -10,6 +10,8 @@ interface SliderProps {
   name: string
   label: string
   defaultValue: number[]
+  min?: number
+  max?: number
   maxLabel?: string
   minLabel?: string
   disabled?: boolean
@@ -17,7 +19,7 @@ interface SliderProps {
 }
 
 export const SliderDouble = (props: SliderProps) => {
-  const { name, label, minLabel, maxLabel, defaultValue, orientation, disabled } = props
+  const { name, label, min, max, minLabel, maxLabel, defaultValue, orientation, disabled } = props
   const { parameters, updateSliderDoubleParameterValue } = useContext(ParameterContext)
 
   // 対応するパラメータを見つけ、その値を設定します。
@@ -34,9 +36,9 @@ export const SliderDouble = (props: SliderProps) => {
         orientation={orientation}
         value={[values[0]]}
         defaultValue={[defaultValue[0]]}
-        min={0}
-        max={100}
-        step={1}
+        min={min}
+        max={max}
+        step={(max - min) / 100.0}
         aria-label="Volume"
         id={`slider-${name}`}
         onValueChange={(value) => {
