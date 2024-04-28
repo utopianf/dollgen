@@ -9,7 +9,7 @@ import ParameterContext, { SliderDoubleParameter } from '../parameter/ParameterP
 interface SliderProps {
   name: string
   label: string
-  defaultValue: number[]
+  defaultValues: number[]
   min?: number
   max?: number
   maxLabel?: string
@@ -19,12 +19,14 @@ interface SliderProps {
 }
 
 export const SliderDouble = (props: SliderProps) => {
-  const { name, label, min, max, minLabel, maxLabel, defaultValue, orientation, disabled } = props
+  const { name, label, min, max, minLabel, maxLabel, orientation, disabled } = props
   const { parameters, updateSliderDoubleParameterValue } = useContext(ParameterContext)
 
   // 対応するパラメータを見つけ、その値を設定します。
   const parameter = parameters.find((param) => param.name === name && param.type === "slider")
-  const values = parameter ? (parameter as SliderDoubleParameter).values : defaultValue
+
+  const defaultValues = props.defaultValues ?? [0, 0]
+  const values = parameter ? (parameter as SliderDoubleParameter).values : defaultValues
 
   return (
     <SliderContainer>
@@ -35,7 +37,7 @@ export const SliderDouble = (props: SliderProps) => {
         disabled={disabled}
         orientation={orientation}
         value={[values[0]]}
-        defaultValue={[defaultValue[0]]}
+        defaultValue={[defaultValues[0]]}
         min={min}
         max={max}
         step={(max - min) / 100.0}
@@ -53,7 +55,7 @@ export const SliderDouble = (props: SliderProps) => {
         disabled={disabled}
         orientation={orientation}
         value={[values[1]]}
-        defaultValue={[defaultValue[1]]}
+        defaultValue={[defaultValues[1]]}
         min={0}
         max={100}
         step={1}
