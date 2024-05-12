@@ -53,7 +53,9 @@ export const ZoomSlider = () => {
 }
 
 const SliderContainer = styled('form', {
-  position: 'relative',
+  position: 'absolute',
+  bottom: '0',
+  right: '0',
   width: '200px',
   height: '47px',
   display: 'flex',

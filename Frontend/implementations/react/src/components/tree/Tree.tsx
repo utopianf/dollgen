@@ -12,8 +12,8 @@ interface TreeProps extends PropsWithChildren {
   setOpen?: (open: boolean) => void
 }
 
-export const Tree: FC<TreeProps> = ({ children, label, disabled, }) => {
-  const [open, setOpen] = useState(true)
+export const Tree: FC<TreeProps> = ({ children, label, disabled }) => {
+  const [open, setOpen] = useState(false)
   return (
     <CollapsibleRoot open={open} onOpenChange={setOpen} disabled={disabled}>
       <Flex>

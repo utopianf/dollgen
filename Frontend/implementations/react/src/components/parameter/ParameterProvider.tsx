@@ -9,12 +9,12 @@ export type ColorParameter = {
   group: string;
   label: string;
   type: "color";
-  rValue: number;
-  gValue: number;
-  bValue: number;
-  defaultRValue: number;
-  defaultGValue: number;
-  defaultBValue: number;
+  rValue?: number;
+  gValue?: number;
+  bValue?: number;
+  defaultRValue?: number;
+  defaultGValue?: number;
+  defaultBValue?: number;
   disabled?: boolean;
 };
 
@@ -38,16 +38,15 @@ export type SliderDoubleParameter = {
   group: string;
   label: string;
   type: "slider_double";
-  min?: number;
-  max?: number;
-  values: number[];
-  defaultValues: number[];
+  mins?: number[];
+  maxs?: number[];
+  values?: number[];
+  defaultValues?: number[];
   disabled?: boolean;
 };
 
 
 export type DropdownItem = {
-  name: string;
   label: string;
   value: number | string;
   disabled?: boolean;
@@ -59,7 +58,7 @@ export type DropdownParameter = {
   group: string;
   label: string;
   type: "dropdown";
-  value: number | string;
+  value?: number | string;
   items: DropdownItem[];
   disabled?: boolean;
 };
@@ -70,20 +69,22 @@ export type CheckboxParameter = {
   group: string;
   label: string;
   type: "checkbox";
-  checked: boolean;
+  checked?: boolean;
+  defaultChecked?: boolean;
   disabled?: boolean;
 };
 
 export type CheckboxGroupParameter = {
   tab: string;
-  name: string;
+  names: string[];
   group: string;
   label: string;
   type: "checkbox_group";
   items: {
     name: string
     label: string;
-    checked: boolean;
+    checked?: boolean;
+    defaultChecked?: boolean;
     disabled?: boolean;
   }[];
 };
@@ -94,12 +95,25 @@ export type CommonParameter = {
   group: string;
   label: string;
   type: "common";
-  value: number;
-  defaultValue: number;
+  value?: number;
+  defaultValue?: number;
   disabled?: boolean;
 };
 
-export type Parameter = ColorParameter | SliderParameter | CommonParameter | SliderDoubleParameter | DropdownParameter | CheckboxGroupParameter | CheckboxParameter;
+// 複数パラメータ(共通数値を持つ)に対応するスライダー
+export type SliderParameterGroup = {
+  tab: string;
+  name: string;
+  group: string;
+  label: string;
+  type: "slider_group";
+  value?: number;
+  defaultValue?: number;
+  disabled?: boolean;
+};
+
+
+export type Parameter = ColorParameter | SliderParameter | CommonParameter | SliderDoubleParameter | DropdownParameter | CheckboxParameter | SliderParameterGroup;
 
 export type Group = {
   tab: string;
@@ -202,371 +216,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
     },
   ]); // ["head", "eye", "mouth", "ear", "cheek", "chin"
   const [parameters, setParameters] = useState<Parameter[]>([
-
-    {
-      "tab": "head",
-      "group": "ベース",
-      "name": "systemparam",
-      "label": "ベースヘッド",
-      "type": "dropdown",
-      "items": [
-        {
-          label: "DG9-01", value: 1
-        },
-      ],
-    },
-    {
-      "tab": "head",
-      "group": "ベース",
-      "name": "righteye_open",
-      "label": "右目は開ける？",
-      "type": "checkbox",
-    },
-    {
-      "tab": "head",
-      "group": "ベース",
-      "name": "lefteye_open",
-      "label": "左目は開ける？",
-      "type": "checkbox",
-    },
-    {
-      "tab": "head",
-      "group": "ベース",
-      "name": "ear_exist",
-      "label": "耳はあり？",
-      "type": "checkbox",
-    },
-    {
-      "tab": "head",
-      "group": "ベース",
-      "name": "mouth_open",
-      "label": "開口する？",
-      "type": "checkbox",
-    },
-    {
-      "tab": "head",
-      "group": "ベース",
-      "name": "upper_teeth_exist",
-      "label": "上歯はあり？",
-      "type": "checkbox",
-    },
-    {
-      "tab": "head",
-      "group": "ベース",
-      "name": "lower_teeth_exist",
-      "label": "下歯はあり？",
-      "type": "checkbox",
-    },
-    {
-      "tab": "head",
-      "group": "ベース",
-      "name": "tongue_exist",
-      "label": "舌はあり？",
-      "type": "checkbox",
-    },
-    {
-      "tab": "head",
-      "group": "ベース",
-      "name": "tsuno_exist",
-      "label": "角はあり？",
-      "type": "checkbox",
-    },
-    {
-      "tab": "head",
-      "group": "輪郭",
-      "name": "cheek_maru",
-      "label": "頬のふくらみ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "輪郭",
-      "name": "chin_kado",
-      "label": "顎の尖り",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "輪郭",
-      "name": "nose_height",
-      "label": "鼻の高さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "輪郭",
-      "name": "nose_width",
-      "label": "鼻の幅",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "アイホール",
-      "name": "eye_X",
-      "label": "左右の大きさ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "アイホール",
-      "name": "eye_Y",
-      "label": "上下の大きさ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "アイホール",
-      "name": "eye_tareme",
-      "label": "垂れ目の強さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "アイホール",
-      "name": "eye_tsurime",
-      "label": "吊り目の強さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "アイホール",
-      "name": "eye_upperflat",
-      "label": "上まぶたの平坦さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "アイホール",
-      "name": "eye_lowerflat",
-      "label": "下まぶたの平坦さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "耳",
-      "name": "ear_elf",
-      "label": "エルフ耳",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "耳",
-      "name": "ear_elf_down",
-      "label": "エルフ耳下がり",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "耳",
-      "name": "ear_demon",
-      "label": "エルフ耳下がり",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "口",
-      "name": "mouse_open",
-      "label": "全体の大きさ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "口",
-      "name": "mouse_yoko",
-      "label": "左右の大きさ(調整)",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "口",
-      "name": "mouse_tate",
-      "label": "上下の大きさ(調整)",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "口",
-      "name": "mouse_neko",
-      "label": "猫口",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "口",
-      "name": "mouse_upperflat",
-      "label": "上側の平坦さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "口",
-      "name": "mouse_lowerflat",
-      "label": "下側の平坦さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "歯",
-      "name": "teeth_upper_main_close,teeth_upper_main_close",
-      "label": "上側の開口調整",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "歯",
-      "name": "teeth_upper_main_height,teeth_upper_base_height",
-      "label": "上側の高さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "歯",
-      "name": "teeth_upper_main_yaeba_R_height",
-      "label": "上右側の犬歯高さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "歯",
-      "name": "teeth_upper_main_yaeba_L_height",
-      "label": "上左側の犬歯高さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "歯",
-      "name": "teeth_upper_main_yaeba_position",
-      "label": "上側の犬歯位置",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "歯",
-      "name": "teeth_upper_main_yaeba_width",
-      "label": "上側の犬歯太さ",
-      "type": "slider",
-    },
-
-    {
-      "tab": "head",
-      "group": "歯",
-      "name": "teeth_lower_main_close,teeth_lower_base_close",
-      "label": "下側の開口調整",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "歯",
-      "name": "teeth_lower_main_height,teeth_lower_base_height",
-      "label": "下側の高さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "歯",
-      "name": "teeth_lower_main_yaeba_R_height",
-      "label": "下右側の犬歯高さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "歯",
-      "name": "teeth_lower_main_yaeba_L_height",
-      "label": "下左側の犬歯高さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "歯",
-      "name": "teeth_lower_main_yaeba_position",
-      "label": "下側の犬歯位置",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "歯",
-      "name": "teeth_lower_main_yaeba_width",
-      "label": "下側の犬歯太さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "舌",
-      "name": "tongue_up",
-      "label": "高さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "舌",
-      "name": "tongue_front",
-      "label": "突き出し",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "舌",
-      "name": "tongue_rollpositive",
-      "label": "上に巻く",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "舌",
-      "name": "tongue_rollnegative",
-      "label": "下に巻く",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "舌",
-      "name": "tongue_sharp",
-      "label": "先端の細さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "角",
-      "name": "systemparam",
-      "label": "種類",
-      "type": "dropdown",
-      "items": [
-        {
-          label: "1本/額中心", value: 1
-        },
-        {
-          label: "2本/額両側", value: 2
-        },
-      ],
-    },
-    {
-      "tab": "head",
-      "group": "角",
-      "name": "tsuno_length",
-      "label": "長さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "角",
-      "name": "tsuno_thickness",
-      "label": "太さ",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "角",
-      "name": "tsuno_balance",
-      "label": "丸み",
-      "type": "slider",
-    },
-    {
-      "tab": "head",
-      "group": "角",
-      "name": "tsuno_bending",
-      "label": "曲率",
-      "type": "slider",
-    },
     {
       "tab": "makeover",
       "group": "ベース",
@@ -575,13 +224,13 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "label": "肌-色選択",
       "items": [
         {
-          label: "アルファ", value: 1
+          label: "ミルク", value: 1
         },
         {
-          label: "ベータ", value: 2
+          label: "プリン", value: 2
         },
         {
-          label: "ガンマ", value: 3
+          label: "ココア", value: 3
         },
       ],
     },
@@ -617,7 +266,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "makeover",
       "group": "ベース",
       "name": "base_eyeshadow_scaleXY",
-      "label": "アイシャドウ-大きさXY",
+      "label": "アイシャドウ-大きさ",
       "type": "slider_double",
     },
     {
@@ -659,7 +308,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "makeover",
       "group": "ベース",
       "name": "base_cheekbase_scaleXY",
-      "label": "ソフトチーク-大きさXY",
+      "label": "ソフトチーク-大きさ",
       "type": "slider",
     },
     {
@@ -668,12 +317,11 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "name": "base_cheekbase_offset",
       "label": "ソフトチーク-位置",
       "type": "slider",
-      "value": 50
     },
     {
       "tab": "makeover",
       "group": "アイライン",
-      "name": "ベース-メインカラー",
+      "name": "ベース-カラー1",
       "label": "eyerush_basecolor1",
       "type": "color",
     },
@@ -681,57 +329,56 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "makeover",
       "group": "アイライン",
       "name": "eyerush_basecolor2",
-      "label": "ベース-サブカラー",
+      "label": "ベース-カラー2",
       "type": "color",
     },
     {
       "tab": "makeover",
       "group": "アイライン",
       "name": "eyerush_basecolor2intensity",
-      "label": "ベース-サブカラー量",
+      "label": "ベース-グラデブレンド",
       "type": "slider",
-      "value": 50
     },
     {
       "tab": "makeover",
       "group": "アイライン",
       "name": "eyerush_patterncolor1",
-      "label": "パターン-メインカラー",
+      "label": "パターン-カラー1",
       "type": "color",
     },
     {
       "tab": "makeover",
       "group": "アイライン",
       "name": "eyerush_patterncolor2",
-      "label": "パターン-サブカラー",
+      "label": "パターン-カラー2",
       "type": "color",
     },
     {
       "tab": "makeover",
       "group": "アイライン",
       "name": "eyerush_patterncolor2intensity",
-      "label": "パターン-サブカラー量",
+      "label": "パターン-グラデブレンド",
       "type": "slider",
     },
     {
       "tab": "makeover",
       "group": "アイライン",
       "name": "eyerush_outerlinecolor1",
-      "label": "輪郭線-メインカラー",
+      "label": "シェイプライン-カラー1",
       "type": "color",
     },
     {
       "tab": "makeover",
       "group": "アイライン",
       "name": "eyerush_outerlinecolor2",
-      "label": "輪郭線-サブカラー",
+      "label": "シェイプライン-カラー2",
       "type": "color",
     },
     {
       "tab": "makeover",
       "group": "アイライン",
       "name": "eyerush_outerlinecolor2intensity",
-      "label": "輪郭線-サブカラー量",
+      "label": "輪郭線-グラデブレンド",
       "type": "slider",
     },
     {
@@ -841,7 +488,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
     {
       "tab": "makeover",
       "group": "アイライン",
-      "name": "eyerush_R_arcintensity",
+      "name": "eyerush_L_arcintensity",
       "label": "左-円弧強さ",
       "type": "slider",
     },
@@ -906,13 +553,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "group": "チーク",
       "name": "cheek_color",
       "label": "ライン-カラー",
-      "type": "color",
-    },
-    {
-      "tab": "makeover",
-      "group": "チーク",
-      "name": "cheek_highlight_color",
-      "label": "ハイライト-カラー",
       "type": "color",
     },
     {
@@ -1006,51 +646,46 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "label": "ハイライト-位置",
       "type": "slider_double",
     },
-
-
-
-
-
     {
       "tab": "makeover",
       "group": "眉毛",
       "name": "eyebrow_basecolor1",
-      "label": "ベース-メインカラー",
+      "label": "ベース-カラー1",
       "type": "color",
     },
     {
       "tab": "makeover",
       "group": "眉毛",
       "name": "eyebrow_basecolor2",
-      "label": "ベース-サブカラー",
+      "label": "ベース-カラー2",
       "type": "color",
     },
     {
       "tab": "makeover",
       "group": "眉毛",
       "name": "eyebrow_basecolor2intensity",
-      "label": "ベース-サブカラー量",
+      "label": "ベース-グラデブレンド",
       "type": "slider",
     },
     {
       "tab": "makeover",
       "group": "眉毛",
       "name": "eyebrow_outerlinecolor1",
-      "label": "輪郭線-メインカラー",
+      "label": "シェイプライン-カラー1",
       "type": "color",
     },
     {
       "tab": "makeover",
       "group": "眉毛",
       "name": "eyebrow_outerlinecolor2",
-      "label": "輪郭線-サブカラー",
+      "label": "シェイプライン-カラー2",
       "type": "color",
     },
     {
       "tab": "makeover",
       "group": "眉毛",
       "name": "eyebrow_outerlinecolor2intensity",
-      "label": "輪郭線-サブカラー量",
+      "label": "シェイプライン-グラデブレンド",
       "type": "slider",
     },
     {
@@ -1090,15 +725,29 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
     {
       "tab": "makeover",
       "group": "眉毛",
+      "name": "eyebrow_L_arcintensity",
+      "label": "左-曲率",
+      "type": "slider",
+    },
+    {
+      "tab": "makeover",
+      "group": "眉毛",
       "name": "eyebrow_R_summitoffset",
-      "label": "右-曲頂点位置",
+      "label": "右-頂点位置",
       "type": "slider",
     },
     {
       "tab": "makeover",
       "group": "眉毛",
       "name": "eyebrow_L_summitoffset",
-      "label": "左-曲頂点位置",
+      "label": "左-頂点位置",
+      "type": "slider",
+    },
+    {
+      "tab": "makeover",
+      "group": "眉毛",
+      "name": "eyebrow_R_rotation",
+      "label": "右-回転",
       "type": "slider",
     },
     {
@@ -1114,6 +763,13 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "name": "eyebrow_R_offset",
       "label": "右-位置",
       "type": "slider_double",
+    },
+    {
+      "tab": "makeover",
+      "group": "眉毛",
+      "name": "eyebrow_L_rotation",
+      "label": "左-回転",
+      "type": "slider",
     },
     {
       "tab": "makeover",
@@ -1171,6 +827,13 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       ],
     },
     {
+      "tab": "makeover",
+      "group": "口-2D",
+      "name": "closemouse_arcintensity",
+      "label": "曲率",
+      "type": "slider",
+    },
+    {
       "tab": "eyes",
       "group": "ベース",
       "name": "overall_sizeXY",
@@ -1183,18 +846,19 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "name": "overall_flattenXY",
       "label": "平坦化",
       "type": "slider_double",
-      {
+    },
+    {
       "tab": "eyes",
       "group": "ベース",
       "name": "base_gradationon",
-      "label": "グラデーションにする？",
+      "label": "グラデにする？",
       "type": "checkbox",
     },
     {
       "tab": "eyes",
       "group": "ベース",
       "name": "base_gradationpattern",
-      "label": "グラデーションの種類",
+      "label": "グラデの種類",
       "type": "dropdown",
       "items": [
         {
@@ -1278,11 +942,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
         },
       ],
     },
-
-
-
-
-
     {
       "tab": "eyes",
       "group": "ベース",
@@ -1308,14 +967,14 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "影-色",
       "name": "shadow_colorA_gradationon",
-      "label": "影色A-グラデーションにする？",
+      "label": "影色A-グラデにする？",
       "type": "checkbox",
     },
     {
       "tab": "eyes",
       "group": "影-色",
       "name": "shadow_colorA_gradationpattern",
-      "label": "影色A-グラデーションの種類",
+      "label": "影色A-グラデの種類",
       "type": "dropdown",
       "items": [
         {
@@ -1333,7 +992,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "影-色",
       "name": "shadow_colorA_blend",
-      "label": "影色A-グラデーションブレンド",
+      "label": "影色A-グラデブレンド",
       "type": "slider",
     },
     {
@@ -1354,14 +1013,14 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "影-色",
       "name": "shadow_colorB_gradationon",
-      "label": "影色B-グラデーションにする？",
+      "label": "影色B-グラデにする？",
       "type": "checkbox",
     },
     {
       "tab": "eyes",
       "group": "影-色",
-      "name": "shadow_colorA_gradationpattern",
-      "label": "影色B-グラデーションの種類",
+      "name": "shadow_colorB_gradationpattern",
+      "label": "影色B-グラデの種類",
       "type": "dropdown",
       "items": [
         {
@@ -1379,7 +1038,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "影-色",
       "name": "shadow_colorB_blend",
-      "label": "影色B-グラデーションブレンド",
+      "label": "影色B-グラデブレンド",
       "type": "slider",
     },
     {
@@ -1396,11 +1055,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "label": "shadow_colorB_color2",
       "type": "color",
     },
-
-
-
-
-
     {
       "tab": "eyes",
       "group": "影-外縁",
@@ -1441,7 +1095,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "影-外縁",
       "name": "shadow_outerlim1_blurintensity",
-      "label": "ぼかし効果強さ",
+      "label": "ぼかし強さ",
       "type": "slider",
     },
     {
@@ -1507,7 +1161,13 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
         },
       ],
     },
-
+    {
+      "tab": "eyes",
+      "group": "影-外縁",
+      "name": "shadow_outerlim1_effectintensity",
+      "label": "エフェクト強さ",
+      "type": "slider",
+    },
 
 
 
@@ -1539,6 +1199,13 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "group": "影-円弧",
       "name": "shadow_arc1_radius",
       "label": "半径",
+      "type": "slider",
+    },
+    {
+      "tab": "eyes",
+      "group": "影-円弧",
+      "name": "shadow_arc1_length",
+      "label": "長さ",
       "type": "slider",
     },
     {
@@ -1580,7 +1247,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "影-円弧",
       "name": "shadow_arc1_blurintensity",
-      "label": "ぼかし効果強さ",
+      "label": "ぼかし強さ",
       "type": "slider",
     },
     {
@@ -1653,15 +1320,10 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "label": "エフェクト強さ",
       "type": "slider",
     },
-
-
-
-
-
     {
       "tab": "eyes",
       "group": "影-円盤",
-      "name": "shadow_arc1_colorselection",
+      "name": "shadow_disc1_colorselection",
       "label": "色選択",
       "type": "dropdown",
       "items": [
@@ -1683,15 +1345,15 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
     {
       "tab": "eyes",
       "group": "影-円盤",
-      "name": "shadow_disc1_offsetXY",
+      "name": "shadow_disc1_scale",
       "label": "大きさ",
-      "type": "slider_double",
+      "type": "slider",
     },
     {
       "tab": "eyes",
       "group": "影-円盤",
       "name": "shadow_disc1_blurintensity",
-      "label": "ぼかし効果強さ",
+      "label": "ぼかし強さ",
       "type": "slider",
     },
     {
@@ -1774,15 +1436,10 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
     {
       "tab": "eyes",
       "group": "影-円盤",
-      "name": "shadow_arc1_effectintensity",
+      "name": "shadow_disc1_effectintensity",
       "label": "エフェクト強さ",
       "type": "slider",
     },
-
-
-
-
-
     {
       "tab": "eyes",
       "group": "影-大円",
@@ -1837,7 +1494,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "影-大円",
       "name": "shadow_largeround1_blurintensity",
-      "label": "ぼかし効果強さ",
+      "label": "ぼかし強さ",
       "type": "slider",
     },
     {
@@ -2030,7 +1687,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "影-自由",
       "name": "shadow_freeshape1_blurintensity",
-      "label": "ぼかし効果強さ",
+      "label": "ぼかし強さ",
       "type": "slider",
     },
     {
@@ -2107,13 +1764,14 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "光-色",
       "name": "glow_colorA_gradationon",
-      "label": "光色A-グラデーションにする？",
+      "label": "光色A-グラデにする？",
+      "type": "checkbox",
     },
     {
       "tab": "eyes",
       "group": "光-色",
       "name": "glow_colorA_gradationpattern",
-      "label": "光色A-グラデーションの種類",
+      "label": "光色A-グラデの種類",
       "type": "dropdown",
       "items": [
         {
@@ -2131,7 +1789,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "光-色",
       "name": "glow_colorA_blend",
-      "label": "光色A-グラデーションブレンド",
+      "label": "光色A-グラデブレンド",
       "type": "slider",
     },
     {
@@ -2152,14 +1810,14 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "光-色",
       "name": "glow_colorB_gradationon",
-      "label": "光色B-グラデーションにする？",
+      "label": "光色B-グラデにする？",
       "type": "checkbox",
     },
     {
       "tab": "eyes",
       "group": "光-色",
       "name": "glow_colorA_gradationpattern",
-      "label": "光色B-グラデーションの種類",
+      "label": "光色B-グラデの種類",
       "type": "dropdown",
       "items": [
         {
@@ -2177,14 +1835,14 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "光-色",
       "name": "glow_colorB_blend",
-      "label": "光色B-グラデーションブレンド",
+      "label": "光色B-グラデブレンド",
       "type": "slider",
     },
     {
       "tab": "eyes",
       "group": "光-色",
       "name": "光色B-カラー1",
-      "label": "shadow_colorB_color1",
+      "label": "glow_colorB_color1",
       "type": "color",
     },
     {
@@ -2194,11 +1852,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "label": "glow_colorB_color2",
       "type": "color",
     },
-
-
-
-
-
     {
       "tab": "eyes",
       "group": "光-円弧",
@@ -2218,7 +1871,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "光-円弧",
       "name": "glow_arc1_opacity",
-      "label": "光円弧-不透明度",
+      "label": "不透明度",
       "type": "slider",
     },
     {
@@ -2274,7 +1927,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "光-円弧",
       "name": "glow_arc1_blurintensity",
-      "label": "ぼかし効果強さ",
+      "label": "ぼかし強さ",
       "type": "slider",
     },
     {
@@ -2349,7 +2002,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
     },
     {
       "tab": "eyes",
-      "group": "光-円環",
+      "group": "光-円環配列",
       "name": "glow_circular1_colorselection",
       "label": "色選択",
       "type": "dropdown",
@@ -2364,14 +2017,14 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
     },
     {
       "tab": "eyes",
-      "group": "光-円環",
+      "group": "光-円環配列",
       "name": "glow_circular1_opacity",
       "label": "不透明度",
       "type": "slider",
     },
     {
       "tab": "eyes",
-      "group": "光-円環",
+      "group": "光-円環配列",
       "name": "glow_circular1_shapeselection",
       "label": "形状選択",
       "type": "dropdown",
@@ -2404,86 +2057,74 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
     },
     {
       "tab": "eyes",
-      "group": "光-円環",
+      "group": "光-円環配列",
       "name": "glow_circular1_radius",
       "label": "半径",
       "type": "slider",
     },
     {
       "tab": "eyes",
-      "group": "光-円環",
+      "group": "光-円環配列",
       "name": "glow_circular1_radius",
       "label": "半径",
       "type": "slider",
     },
     {
       "tab": "eyes",
-      "group": "光-円環",
-      "name": "glow_circular1_radius",
-      "label": "半径",
-      "type": "slider",
-    },
-    {
-      "tab": "eyes",
-      "group": "光-円環",
+      "group": "光-円環配列",
       "name": "glow_circular1_distributionlength",
-      "label": "配列範囲長さ",
+      "label": "配列範囲",
       "type": "slider",
     },
     {
       "tab": "eyes",
-      "group": "光-円環",
+      "group": "光-円環配列",
       "name": "glow_circular1_shapeamount",
       "label": "配列数",
       "type": "slider",
     },
     {
       "tab": "eyes",
-      "group": "光円環",
+      "group": "光-円環配列",
       "name": "glow_circular1_shapescaleXY",
       "label": "形状大きさ",
       "type": "slider_double",
     },
     {
       "tab": "eyes",
-      "group": "光円環",
+      "group": "光-円環配列",
       "name": "glow_circular1_shapepositionrandomXY",
       "label": "位置ランダム",
       "type": "slider_double",
     },
     {
       "tab": "eyes",
-      "group": "光-円環",
+      "group": "光-円環配列",
       "name": "glow_circular1_shaperotationrandom",
       "label": "回転ランダム",
       "type": "slider",
     },
     {
       "tab": "eyes",
-      "group": "光-円環",
+      "group": "光-円環配列",
       "name": "glow_circular1_randomseed",
       "label": "ランダムシード",
       "type": "slider",
     },
     {
       "tab": "eyes",
-      "group": "光-円環",
+      "group": "光-円環配列",
       "name": "glow_circular1_rotation",
       "label": "回転",
       "type": "slider",
     },
     {
       "tab": "eyes",
-      "group": "光-円環",
+      "group": "光-円環配列",
       "name": "glow_circular1_blurintensity",
-      "label": "ぼかし効果強さ",
+      "label": "ぼかし強さ",
       "type": "slider",
     },
-
-
-
-
-
     {
       "tab": "eyes",
       "group": "光-大円",
@@ -2538,7 +2179,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "光-大円",
       "name": "glow_largeround1_blurintensity",
-      "label": "ぼかし効果強さ",
+      "label": "ぼかし強さ",
       "type": "slider",
     },
     {
@@ -2622,6 +2263,140 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "光-大円",
       "name": "glow_largeround1_effectintensity",
+      "label": "エフェクト強さ",
+      "type": "slider",
+    },
+    {
+      "tab": "eyes",
+      "group": "光-大円弧",
+      "name": "glow_largearc1_colorselection",
+      "label": "色選択",
+      "type": "dropdown",
+      "items": [
+        {
+          label: "光色A", value: 1
+        },
+        {
+          label: "光色B", value: 2
+        },
+      ],
+    },
+    {
+      "tab": "eyes",
+      "group": "光-大円弧",
+      "name": "glow_largearc1_opacity",
+      "label": "不透明度",
+      "type": "slider",
+    },
+    {
+      "tab": "eyes",
+      "group": "光-大円弧",
+      "name": "glow_largearc1_roundness",
+      "label": "曲率",
+      "type": "slider",
+    },
+    {
+      "tab": "eyes",
+      "group": "光-大円弧",
+      "name": "glow_largearc1_invertroundness",
+      "label": "曲率を反転する？",
+      "type": "checkbox",
+    },
+    {
+      "tab": "eyes",
+      "group": "光-大円",
+      "name": "glow_largearc1_invertY",
+      "label": "全体を上下反転する？",
+      "type": "checkbox",
+    },
+    {
+      "tab": "eyes",
+      "group": "光-大円弧",
+      "name": "glow_largearc1_offsetY",
+      "label": "上下位置",
+      "type": "slider",
+    },
+    {
+      "tab": "eyes",
+      "group": "光-大円弧",
+      "name": "glow_largearc1_width",
+      "label": "上下位置",
+      "type": "slider",
+    },
+    {
+      "tab": "eyes",
+      "group": "光-大円",
+      "name": "glow_largearc1_blurintensity",
+      "label": "ぼかし強さ",
+      "type": "slider",
+    },
+    {
+      "tab": "eyes",
+      "group": "光-大円弧",
+      "name": "glow_largearc1_effectpattern",
+      "label": "エフェクト種類",
+      "type": "dropdown",
+      "items": [
+        {
+          label: "無し", value: 1
+        },
+        {
+          label: "集中1", value: 2
+        },
+        {
+          label: "集中2", value: 3
+        },
+        {
+          label: "異方性1-X軸", value: 4
+        },
+        {
+          label: "異方性1-Y軸", value: 5
+        },
+        {
+          label: "異方性2-X軸", value: 6
+        },
+        {
+          label: "異方性2-Y軸", value: 7
+        },
+        {
+          label: "異方性3-X軸", value: 8
+        },
+        {
+          label: "異方性3-Y軸", value: 9
+        },
+        {
+          label: "斑点1", value: 10
+        },
+        {
+          label: "斑点2", value: 11
+        },
+        {
+          label: "斑点3", value: 12
+        },
+        {
+          label: "霧1", value: 13
+        },
+        {
+          label: "霧2", value: 14
+        },
+        {
+          label: "波1", value: 15
+        },
+        {
+          label: "波2", value: 16
+        },
+        {
+          label: "ノイズ1", value: 17
+        },
+        {
+          label: "ノイズ2", value: 18
+        },
+      ],
+    },
+    {
+      "tab": "eyes",
+      "group": "光-大円弧",
+      "name": "glow_largearc1_effectintensity",
       "label": "エフェクト強さ",
       "type": "slider",
     },
@@ -2726,7 +2501,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "光-自由",
       "name": "glow_freeshape1_blurintensity",
-      "label": "ぼかし効果強さ",
+      "label": "ぼかし強さ",
       "type": "slider",
     },
     {
@@ -2799,11 +2574,6 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "label": "エフェクト強さ",
       "type": "slider",
     },
-
-
-
-
-
     {
       "tab": "eyes",
       "group": "ハイライト",
@@ -2841,30 +2611,17 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "ハイライト",
       "name": "highlight_shapescaleXY",
-      "label": "ハイライト-形状大きさ",
+      "label": "形状大きさ",
       "type": "slider_double",
     },
     {
       "tab": "eyes",
       "group": "ハイライト",
-      "name": "highlight_rotation",
+      "name": "highlight_shaperotation",
       "label": "形状回転",
       "type": "slider",
     },
-    {
-      "tab": "eyes",
-      "group": "ハイライト",
-      "name": "highlight_scale",
-      "label": "ハイライト-全体大きさ",
-      "type": "slider",
-    },
-    {
-      "tab": "eyes",
-      "group": "ハイライト",
-      "name": "highlight_offsetXY",
-      "label": "ハイライト-位置",
-      "type": "slider_double",
-    },
+
     {
       "tab": "eyes",
       "group": "ハイライト",
@@ -2889,9 +2646,23 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
     {
       "tab": "eyes",
       "group": "ハイライト",
-      "name": "highlight_angle",
+      "name": "highlight_ghostangle",
       "label": "ゴースト角度",
       "type": "slider",
+    },
+    {
+      "tab": "eyes",
+      "group": "ハイライト",
+      "name": "highlight_scale",
+      "label": "大きさ",
+      "type": "slider",
+    },
+    {
+      "tab": "eyes",
+      "group": "ハイライト",
+      "name": "highlight_offsetXY",
+      "label": "位置",
+      "type": "slider_double",
     },
     {
       "tab": "eyes",
@@ -2904,15 +2675,392 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
       "tab": "eyes",
       "group": "ハイライト",
       "name": "highlight_blurintensity",
-      "label": "ぼかし効果強さ",
+      "label": "ぼかし強さ",
       "type": "slider",
     },
+    {
+      "tab": "head",
+      "group": "ベース",
+      "name": "systemparam",
+      "label": "ベースヘッド",
+      "type": "dropdown",
+      "items": [
+        {
+          label: "DG9-01", value: 1
+        },
+      ],
+    },
+    // {
+    //   "tab": "head",
+    //   "group": "ベース",
+    //   "label": "目は開ける？",
+    //   "type": "checkbox_group",
+    //   "items":
+    //     [{
+    //       "label": "右目",
+    //       "name": "EyeRight.Open",
+    //     }, {
+    //       "label": "左目",
+    //       "name": "EyeLeft.Open"
+    //     }]
+    // },
+    {
+      "tab": "head",
+      "group": "ベース",
+      "name": "EyeRight.Open",
+      "label": "目は開ける？",
+      "type": "checkbox",
+    },
+    {
+      "tab": "head",
+      "group": "ベース",
+      "name": "EyeLeft.Open",
+      "label": "目は開ける？",
+      "type": "checkbox",
+    },
+    {
+      "tab": "head",
+      "group": "ベース",
+      "name": "Ear.Visible",
+      "label": "耳はあり？",
+      "type": "checkbox",
+    },
+    {
+      "tab": "head",
+      "group": "ベース",
+      "name": "Mouse.Open",
+      "label": "開口する？",
+      "type": "checkbox",
+    },
+    {
+      "tab": "head",
+      "group": "ベース",
+      "name": "TeethUpperMain.Visible",
+      "label": "上歯はあり？",
+      "type": "checkbox",
+    },
+    {
+      "tab": "head",
+      "group": "ベース",
+      "name": "TeethLowerMain.Visible",
+      "label": "下歯はあり？",
+      "type": "checkbox",
+    },
+    {
+      "tab": "head",
+      "group": "ベース",
+      "name": "Tongue.Visible",
+      "label": "舌はあり？",
+      "type": "checkbox",
+    },
+    {
+      "tab": "head",
+      "group": "ベース",
+      "name": "Tsuno.Visible",
+      "label": "角はあり？",
+      "type": "checkbox",
+    },
+    {
+      "tab": "head",
+      "group": "輪郭",
+      "name": "cheek_maru",
+      "label": "頬のふくらみ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "輪郭",
+      "name": "chin_kado",
+      "label": "顎の尖り",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "輪郭",
+      "name": "nose_height",
+      "label": "鼻の高さ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "輪郭",
+      "name": "nose_width",
+      "label": "鼻の幅",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "アイホール",
+      "name": "eye_X",
+      "label": "左右の大きさ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "アイホール",
+      "name": "eye_Y",
+      "label": "上下の大きさ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "アイホール",
+      "name": "eye_tareme",
+      "label": "垂れ目の強さ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "アイホール",
+      "name": "eye_tsurime",
+      "label": "吊り目の強さ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "アイホール",
+      "name": "eye_upperflat",
+      "label": "上まぶたの平坦さ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "アイホール",
+      "name": "eye_lowerflat",
+      "label": "下まぶたの平坦さ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "耳",
+      "name": "ear_elf",
+      "label": "エルフ耳",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "耳",
+      "name": "ear_elf_down",
+      "label": "エルフ耳下がり",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "耳",
+      "name": "ear_demon",
+      "label": "デーモン耳",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "口",
+      "name": "mouse_open",
+      "label": "全体の大きさ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "口",
+      "name": "mouse_yoko",
+      "label": "左右の大きさ(調整)",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "口",
+      "name": "mouse_tate",
+      "label": "上下の大きさ(調整)",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "口",
+      "name": "mouse_neco",
+      "label": "猫口",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "口",
+      "name": "mouse_upperflat",
+      "label": "上側の平坦さ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "口",
+      "name": "mouse_lowerflat",
+      "label": "下側の平坦さ",
+      "type": "slider",
+    },
+    // {
+    //   "tab": "head",
+    //   "group": "歯",
+    //   "names": ["teeth_upper_main_close", "teeth_upper_base_close"],
+    //   "label": "上側の開口調整",
+    //   "type": "slider_group",
+    // },
+    // {
+    //   "tab": "head",
+    //   "group": "歯",
+    //   "names": ["teeth_upper_main_height", "teeth_upper_base_height"],
+    //   "label": "上側の高さ",
+    //   "type": "slider_group",
+    // },
+    {
+      "tab": "head",
+      "group": "歯",
+      "name": "teeth_upper_main_yaeba_R_height",
+      "label": "上右側の犬歯高さ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "歯",
+      "name": "teeth_upper_main_yaeba_L_height",
+      "label": "上左側の犬歯高さ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "歯",
+      "name": "teeth_upper_main_yaeba_position",
+      "label": "上側の犬歯位置",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "歯",
+      "name": "teeth_upper_main_yaeba_width",
+      "label": "上側の犬歯太さ",
+      "type": "slider",
+    },
+    // {
+    //   "tab": "head",
+    //   "group": "歯",
+    //   "names": ["teeth_lower_main_close", "teeth_lower_base_close"],
+    //   "label": "下側の開口調整",
+    //   "type": "slider_group",
+    // },
+    // {
+    //   "tab": "head",
+    //   "group": "歯",
+    //   "names": ["teeth_lower_main_height", "teeth_lower_base_height"],
+    //   "label": "下側の高さ",
+    //   "type": "slider_group",
+    // },
+    {
+      "tab": "head",
+      "group": "歯",
+      "name": "teeth_lower_main_yaeba_R_height",
+      "label": "下右側の犬歯高さ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "歯",
+      "name": "teeth_lower_main_yaeba_L_height",
+      "label": "下左側の犬歯高さ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "歯",
+      "name": "teeth_lower_main_yaeba_position",
+      "label": "下側の犬歯位置",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "歯",
+      "name": "teeth_lower_main_yaeba_width",
+      "label": "下側の犬歯太さ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "舌",
+      "name": "tongue_up",
+      "label": "高さ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "舌",
+      "name": "tongue_front",
+      "label": "突き出し",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "舌",
+      "name": "tongue_rollpositive",
+      "label": "上に巻く",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "舌",
+      "name": "tongue_rollnegative",
+      "label": "下に巻く",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "舌",
+      "name": "tongue_sharp",
+      "label": "先端の細さ",
+      "type": "slider",
+    },
+    {
+      "tab": "head",
+      "group": "角",
+      "name": "Tsuno.Type",
+      "label": "種類",
+      "type": "dropdown",
+      "items": [
+        {
+          label: "1本/額中心", value: 1
+        },
+        {
+          label: "2本/額両側", value: 2
+        },
+      ],
+    },
+    // {
+    //   "tab": "head",
+    //   "group": "角",
+    //   "names": ["tsuno_c_length", "tsuno_s_length"],
+    //   "label": "長さ",
+    //   "type": "slider_group",
+    // },
+    // {
+    //   "tab": "head",
+    //   "group": "角",
+    //   "names": ["tsuno_c_thickness", "tsuno_s_thickness"],
+    //   "label": "太さ",
+    //   "type": "slider_group",
+    // },
+    // {
+    //   "tab": "head",
+    //   "group": "角",
+    //   "names": ["tsuno_c_balanceA", "tsuno_s_balanceB"],
+    //   "label": "丸み",
+    //   "type": "slider_group",
+    // },
+    // {
+    //   "tab": "head",
+    //   "group": "角",
+    //   "names": ["tsuno_c_bending", "tsuno_s_bending"],
+    //   "label": "曲率",
+    //   "type": "slider_group",
+    // },
   ]);
 
   const updateSliderParameterValue = (parameterName: string, value: number) => {
     setParameters(prevParameters =>
       prevParameters.map(param => {
-        if (param.name !== parameterName) { return param };
+        if (!("name" in param) || (param.name !== parameterName)) { return param };
         if (param.type === 'slider') {
           if (pixelStreaming) {
             pixelStreaming.emitUIInteraction({
@@ -2930,7 +3078,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
   const updateSliderDoubleParameterValue = (parameterName: string, values: number[]) => {
     setParameters(prevParameters =>
       prevParameters.map(param => {
-        if (param.name !== parameterName) return param;
+        if (!("name" in param) || param.name !== parameterName) return param;
         if (param.type === 'slider_double') {
           if (pixelStreaming) {
             pixelStreaming.emitUIInteraction({
@@ -2948,7 +3096,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
   const updateCommonParameterValue = (parameterName: string, value: number) => {
     setParameters(prevParameters =>
       prevParameters.map(param => {
-        if (param.name !== parameterName) return param;
+        if (!("name" in param) || param.name !== parameterName) return param;
         if (param.type === 'common') {
           if (pixelStreaming) {
             pixelStreaming.emitUIInteraction({
@@ -2967,7 +3115,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
   const updateColorParameterValue = (parameterName: string, rValue: number, gValue: number, bValue: number) => {
     setParameters(prevParameters =>
       prevParameters.map(param => {
-        if (param.name !== parameterName) return param;
+        if (!("name" in param) || param.name !== parameterName) return param;
         if (param.type === 'color') {
           if (pixelStreaming) {
             pixelStreaming.emitUIInteraction({
@@ -2985,7 +3133,7 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
   const updateCheckboxParameterValue = (parameterName: string, checked: boolean) => {
     setParameters(prevParameters =>
       prevParameters.map(param => {
-        if (param.name !== parameterName) return param;
+        if (!("name" in param) || param.name !== parameterName) return param;
         if (param.type === 'checkbox') {
           if (pixelStreaming) {
             pixelStreaming.emitUIInteraction({
@@ -3004,12 +3152,32 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
   const updateDropdownParameterValue = (parameterName: string, value: number | string) => {
     setParameters(prevParameters =>
       prevParameters.map(param => {
-        if (param.name !== parameterName) return param;
+        if (!("name" in param) || param.name !== parameterName) return param;
         if (param.type === 'dropdown') {
           if (pixelStreaming) {
             pixelStreaming.emitUIInteraction({
               parameter: parameterName,
               value: value,
+            })
+          }
+          return { ...param, value };
+        }
+        return param;
+      })
+    );
+  }
+
+  const updateSliderParameterGroupValue = (parameterName: string, value: number) => {
+    setParameters(prevParameters =>
+      prevParameters.map(param => {
+        if (!("names" in param) || param.names.indexOf(parameterName) === -1) return param;
+        if (param.type === 'slider_group') {
+          if (pixelStreaming) {
+            param.names.forEach(name => {
+              pixelStreaming.emitUIInteraction({
+                parameter: name,
+                value: value,
+              })
             })
           }
           return { ...param, value };
@@ -3030,29 +3198,79 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
 
   const init = (ueparameters: UEParameter[]) => {
     ueparameters.forEach(up => {
-      const ps = parameters.filter(p => p.name === up.name)
+      const ps = parameters.filter(p => ("name" in p) && p.name === up.name)
       if (ps.length == 1) {
         const p = ps[0]
-        console.log(p, up)
         if (p.type === "slider") {
           setParameters(prevParameters =>
             prevParameters.map(_p => {
-              if (up.name !== _p.name) return _p;
-              console.log({ ..._p, value: up.default[0], min: up.min[0], max: up.max[0] })
-              return { ..._p, value: up.default[0], min: up.min[0], max: up.max[0] };
+              if (!("name" in _p) || up.name !== _p.name) return _p;
+              // Sliderであればかならずdefault, min, maxがある
+              // ない場合はエラー
+              if (!up.default || !("min" in up) || !("max" in up)) {
+                console.error('parameter error: ', up.name)
+                return _p;
+              }
+              return { ..._p, defaultValue: up.default[0], value: up.default[0], min: up.min[0], max: up.max[0] };
+            })
+          );
+        }
+        else if (p.type === "slider_double") {
+          setParameters(prevParameters =>
+            prevParameters.map(_p => {
+              if (!("name" in _p) || up.name !== _p.name) return _p;
+              // Sliderであればかならずdefault, min, maxがある
+              // ない場合はエラー
+              if (!up.default || !("min" in up) || !("max" in up)) {
+                console.error('parameter error: ', up.name)
+                return _p;
+              }
+
+              return { ..._p, defaultValues: up.default, values: up.default, mins: up.min, maxs: up.max };
+            })
+          );
+        }
+        else if (p.type === "dropdown") {
+          setParameters(prevParameters =>
+            prevParameters.map(_p => {
+              if (!("name" in _p) || up.name !== _p.name) return _p;
+              return { ..._p, defaultValue: up.default[0], value: up.default[0] };
+            })
+          );
+        }
+        else if (p.type === "checkbox") {
+          setParameters(prevParameters =>
+            prevParameters.map(_p => {
+              if (!("name" in _p) || up.name !== _p.name) return _p;
+              return { ..._p, defaultChecked: !!up.default[0], checked: !!up.default[0] };
+            })
+          );
+        }
+        // else if (p.type === "checkbox_group") {
+        //   setParameters(prevParameters =>
+        //     prevParameters.map(_p => {
+        //       if (!("name" in _p) || up.name !== _p.name) return _p;
+        //       return { ..._p, defaultValue: up.default[0], value: up.default[0] };
+        //     })
+        //   );
+        // }
+        else if (p.type === "color") {
+          setParameters(prevParameters =>
+            prevParameters.map(_p => {
+              if (!("name" in _p) || up.name !== _p.name) return _p;
+              return { ..._p, defaultRValue: up.default[0], rValue: up.default[0], defaultGValue: up.default[1], gValue: up.default[1], defaultBValue: up.default[2], bValue: up.default[2] };
             })
           );
         }
       }
     })
-    console.log(parameters)
   }
 
   const reset = (parameterName?: string) => {
     if (parameterName) {
       setParameters(prevParameters =>
         prevParameters.map(param => {
-          if (param.name !== parameterName) return param;
+          if ((("name" in param) && param.name !== parameterName) || ("names" in param) && param.names.indexOf(parameterName) === -1) return param;
           if (param.type === 'slider') {
             return { ...param, value: param.defaultValue };
           }
@@ -3065,6 +3283,12 @@ export const ParameterProvider = ({ children }: { children: ReactNode }) => {
           if (param.type === 'color') {
             return { ...param, rValue: param.defaultRValue, gValue: param.defaultGValue, bValue: param.defaultBValue };
           }
+          if (param.type === "checkbox") {
+            return { ...param, checked: param.defaultChecked };
+          }
+          // if (param.type === "checkbox_group") {
+          //   return { ...param, value: param.defaultValue };
+          // }
           return param;
         })
       );

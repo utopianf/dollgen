@@ -1,14 +1,19 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 import React, { useContext, useEffect, useRef, useState } from 'react';
+
 import {
     Config,
     AllSettings,
     PixelStreaming,
     Logger
 } from '@epicgames-ps/lib-pixelstreamingfrontend-ue5.2';
+
 import { PixelStreamingContext } from './PixelStreamingProvider';
 import ParameterContext from '../parameter/ParameterProvider';
+import { PitchSlider } from '../slider/PitchSlider';
+import { YawSlider } from '../slider/YawSlider';
+import { ZoomSlider } from '../slider/ZoomSlider';
 
 export interface PixelStreamingWrapperProps {
     initialSettings?: Partial<AllSettings>;
@@ -43,7 +48,8 @@ export const PixelStreamingWrapper = ({
             });
 
             streaming.addResponseEventListener('responseListener', (response) => {
-                // Logger.Log(Logger.GetStackTrace(), `Response received: ${response}`, Logger.verboseLogLevel);
+                Logger.Log(Logger.GetStackTrace(), `Response received: ${response}`, Logger.verboseLogLevel);
+                Logger.Log(Logger.GetStackTrace(), `Parsed Parameters: ${JSON.parse(response).parameters}`, Logger.verboseLogLevel);
                 init(JSON.parse(response).parameters)
             });
 
@@ -98,6 +104,9 @@ export const PixelStreamingWrapper = ({
                     <div>Click to play</div>
                 </div>
             )}
+            <YawSlider />
+            <PitchSlider />
+            <ZoomSlider />
         </div>
     );
 };

@@ -10,8 +10,8 @@ interface SliderProps {
   name: string
   label: string
   defaultValues: number[]
-  min?: number
-  max?: number
+  mins?: number[]
+  maxs?: number[]
   maxLabel?: string
   minLabel?: string
   disabled?: boolean
@@ -19,11 +19,14 @@ interface SliderProps {
 }
 
 export const SliderDouble = (props: SliderProps) => {
-  const { name, label, min, max, minLabel, maxLabel, orientation, disabled } = props
+  const { name, label, mins: _mins, maxs: _maxs, minLabel, maxLabel, orientation, disabled } = props
   const { parameters, updateSliderDoubleParameterValue } = useContext(ParameterContext)
 
+  const mins = _mins ?? [0, 0]
+  const maxs = _maxs ?? [100, 100]
+
   // 対応するパラメータを見つけ、その値を設定します。
-  const parameter = parameters.find((param) => param.name === name && param.type === "slider")
+  const parameter = parameters.find((param) => "name" in param && param.name === name && param.type === "slider")
 
   const defaultValues = props.defaultValues ?? [0, 0]
   const values = parameter ? (parameter as SliderDoubleParameter).values : defaultValues
@@ -38,9 +41,9 @@ export const SliderDouble = (props: SliderProps) => {
         orientation={orientation}
         value={[values[0]]}
         defaultValue={[defaultValues[0]]}
-        min={min}
-        max={max}
-        step={(max - min) / 100.0}
+        min={mins[0]}
+        max={maxs[0]}
+        step={(maxs[0] - mins[0]) / 100.0}
         aria-label="Volume"
         id={`slider-${name}`}
         onValueChange={(value) => {
@@ -56,9 +59,9 @@ export const SliderDouble = (props: SliderProps) => {
         orientation={orientation}
         value={[values[1]]}
         defaultValue={[defaultValues[1]]}
-        min={0}
-        max={100}
-        step={1}
+        min={mins[1]}
+        max={maxs[1]}
+        step={(maxs[1] - mins[1]) / 100.0}
         aria-label="Volume"
         id={`slider-${name}`}
         onValueChange={(value) => {
@@ -90,7 +93,7 @@ export const SliderDouble = (props: SliderProps) => {
 const SliderContainer = styled('form', {
   position: 'relative',
   width: '200px',
-  height: '47px',
+  height: '62px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',

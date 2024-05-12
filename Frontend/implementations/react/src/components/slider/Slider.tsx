@@ -23,10 +23,9 @@ interface SliderProps {
 export const Slider = (props: SliderProps) => {
   const { name, label, minLabel, maxLabel, defaultValue, orientation, disabled, min, max } = props
   const { parameters, updateSliderParameterValue } = useContext(ParameterContext)
-  const { pixelStreaming } = useContext(PixelStreamingContext)
 
   // 対応するパラメータを見つけ、その値を設定します。
-  const parameter = parameters.find((param) => param.name === name && param.type === "slider")
+  const parameter = parameters.find((param) => "name" in param && param.name === name && param.type === "slider")
   const value = parameter ? Number((parameter as SliderParameter).value) : defaultValue
 
   return (

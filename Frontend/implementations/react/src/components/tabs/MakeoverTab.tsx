@@ -10,6 +10,7 @@ import { Slider } from '../slider/Slider'
 import { Tree } from '../tree/Tree'
 import ParameterContext from '../parameter/ParameterProvider'
 import { SliderDouble } from '../slider/SliderDouble'
+import { ColorPicker } from '../colorpicker/ColorPicker'
 
 export const MakeoverTab = () => {
   const tabName = "makeover"
@@ -32,7 +33,9 @@ export const MakeoverTab = () => {
                   case "checkbox":
                     return <Checkbox key={param.name} name={param.name} />
                   case "slider_double":
-                    return <SliderDouble key={param.name} name={param.name} label={param.label} min={param.min} max={param.max} defaultValue={param.defaultValues} />
+                    return <SliderDouble key={param.name} name={param.name} label={param.label} mins={param.mins} maxs={param.maxs} defaultValues={param.defaultValues} />
+                  case "color":
+                    return <ColorPicker key={param.name} name={param.name} label={param.label} />
                   default:
                     return <></>
                 }
@@ -63,7 +66,7 @@ const CheckboxLabel = styled(Label, {
 const Flex = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  gap: '10px',
+  gap: '15px',
 })
 
 const FlexRow = styled('div', {

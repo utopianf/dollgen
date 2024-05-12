@@ -4,7 +4,7 @@ import * as _Checkbox from '@radix-ui/react-checkbox';
 import { CheckIcon } from '@radix-ui/react-icons';
 
 import { styled } from '../../core/stitches';
-import ParameterContext, { CheckboxGroupParameter, CheckboxParameter } from '../parameter/ParameterProvider';
+import ParameterContext, { CheckboxParameter } from '../parameter/ParameterProvider';
 
 interface BaseCheckboxProps {
     label: string
@@ -46,24 +46,24 @@ export const Checkbox = ({ name }: CheckboxGroupProps) => {
     )
 }
 
-export const CheckboxGroup = ({ name }: CheckboxGroupProps) => {
-    const { parameters, updateCheckboxParameterValue } = useContext(ParameterContext)
-    const parameter = parameters.find((param) => (param.name === name) && (param.type === "checkbox_group")) as CheckboxGroupParameter
+// export const CheckboxGroup = ({ name }: CheckboxGroupProps) => {
+//     const { parameters, updateCheckboxParameterValue } = useContext(ParameterContext)
+//     const parameter = parameters.find((param) => (param.name === name) && (param.type === "checkbox_group")) as CheckboxGroupParameter
 
-    if (!parameter) {
-        return null
-    }
-    return (
-        <>
-            <CheckboxLabel>{parameter.label}</CheckboxLabel>
-            <FlexRow>
-                {parameter.items.map(({ name, label, checked }, index) => (
-                    <BaseCheckbox key={index} label={label} checked={checked} setChecked={() => updateCheckboxParameterValue(name, !checked)} />
-                ))}
-            </FlexRow>
-        </>
-    )
-}
+//     if (!parameter) {
+//         return null
+//     }
+//     return (
+//         <>
+//             <CheckboxLabel>{parameter.label}</CheckboxLabel>
+//             <FlexRow>
+//                 {parameter.items.map(({ name, label, checked }, index) => (
+//                     <BaseCheckbox key={index} label={label} checked={checked} setChecked={() => updateCheckboxParameterValue(name, !checked)} />
+//                 ))}
+//             </FlexRow>
+//         </>
+//     )
+// }
 
 const CheckboxRoot = styled(_Checkbox.Root, {
     all: 'unset',
@@ -105,8 +105,8 @@ const CheckboxLabel = styled(Label, {
     marginBottom: 5,
     display: 'block',
 })
-const FlexRow = styled('div', {
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 25
-})
+// const FlexRow = styled('div', {
+//     display: 'flex',
+//     flexDirection: 'row',
+//     gap: 25
+// })

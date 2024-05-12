@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from 'react'
 
 import { Label } from '@radix-ui/react-label'
 import { Color, parseColor } from '@react-stately/color'
-import { styled } from '../../core/stitches'
+
 
 import { ColorArea } from './ColorArea'
 import { ColorWheel } from './ColorWheel'
+import { styled } from '../../core/stitches'
 import ParameterContext, { ColorParameter } from '../parameter/ParameterProvider'
 import { PixelStreamingContext } from '../pixelStreaming/PixelStreamingProvider'
 
@@ -21,7 +22,7 @@ export const ColorPicker = (props: ColorPickerProps) => {
   const { name } = props
   const { parameters, updateColorParameterValue } = useContext(ParameterContext)
 
-  const parameter = parameters.find((param) => param.name === name && param.type === "color")
+  const parameter = parameters.find((param) => "name" in param && param.name === name && param.type === "color")
   const { rValue, gValue, bValue } = parameter ? (parameter as ColorParameter) : { rValue: 0.5, gValue: 0.5, bValue: 0.5 }
 
   const [value, setValue] = useState<Color>(
@@ -57,48 +58,55 @@ export const ColorPicker = (props: ColorPickerProps) => {
   }
 
   return (
-    <ColorPickerWrapper>
+    <ColorPickerContainer>
       <ColorPickerLabel htmlFor={name}>{props.label}</ColorPickerLabel>
-      <ColorWheelWrapper>
-        <ColorWheel
-          value={value}
-          onChange={setValue}
-          onChangeEnd={handleChangeEnd}
-        />
-      </ColorWheelWrapper>
-      <ColorAreaWrapper>
-        <ColorArea
-          name={name}
-          value={value}
-          onChange={setValue}
-          onChangeEnd={handleChangeEnd}
-          xChannel={sChannel}
-          yChannel={lChannel}
-        />
-      </ColorAreaWrapper>
-    </ColorPickerWrapper>
+      <ColorPickerWrapper>
+        <ColorWheelWrapper>
+          <ColorWheel
+            value={value}
+            onChange={setValue}
+            onChangeEnd={handleChangeEnd}
+          />
+        </ColorWheelWrapper>
+        <ColorAreaWrapper>
+          <ColorArea
+            name={name}
+            value={value}
+            onChange={setValue}
+            onChangeEnd={handleChangeEnd}
+            xChannel={sChannel}
+            yChannel={lChannel}
+          />
+        </ColorAreaWrapper>
+      </ColorPickerWrapper>
+    </ColorPickerContainer>
   )
 }
 
 const ColorPickerLabel = styled(Label, {
-  position: 'absolute',
-  top: 0,
-  left: 0,
 })
 
 const ColorPickerWrapper = styled('div', {
+  height: '200px',
+})
+
+const ColorPickerContainer = styled('div', {
   position: 'relative',
+  width: '200px',
+  height: '230px',
   display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  flexDirection: 'column',
+  gap: '10px',
 })
 
 const ColorWheelWrapper = styled('div', {
-  position: 'relative',
+  position: 'absolute',
   zIndex: 1,
 })
 
 const ColorAreaWrapper = styled('div', {
   position: 'absolute',
   zIndex: 2,
+  top: '80px',
+  left: '50px',
 })

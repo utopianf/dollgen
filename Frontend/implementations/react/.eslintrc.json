@@ -1,13 +1,6 @@
 {
-    "extends": [
-        "eslint:recommended",
-        "prettier"
-    ],
-    "plugins": [
-        "@typescript-eslint",
-        "unused-imports",
-        "import"
-    ],
+    "extends": ["eslint:recommended", "prettier"],
+    "plugins": ["@typescript-eslint", "unused-imports", "import"],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "sourceType": "module",
@@ -39,10 +32,7 @@
                     "builtin", // 1. fsや path などの node "builtin" のモジュール
                     "external", // 2. npm install したパッケージ
                     "internal", // 3. webpack などでパス設定したモジュール
-                    [
-                        "parent",
-                        "sibling"
-                    ], // 4. 親階層と小階層のファイル
+                    ["parent", "sibling"], // 4. 親階層と小階層のファイル
                     "object", // object"-imports
                     "type", // 型だけをインポートする type imports
                     "index" // 同階層のファイル
@@ -51,9 +41,7 @@
                 "newlines-between": "always", // "never" を指定すると改行なし
                 // FIXME: ちょっとよく分かってない
                 // This defines import types that are not handled by configured pathGroups. This is mostly needed when you want to handle path groups that look like external imports.
-                "pathGroupsExcludedImportTypes": [
-                    "builtin"
-                ],
+                "pathGroupsExcludedImportTypes": ["builtin"],
                 // アルファベット順・大文字小文字を区別しない
                 "alphabetize": {
                     "order": "asc",
@@ -91,7 +79,5 @@
             }
         ]
     },
-    "ignorePatterns": [
-        "**/*.js"
-    ]
+    "ignorePatterns": ["**/*.js"]
 }

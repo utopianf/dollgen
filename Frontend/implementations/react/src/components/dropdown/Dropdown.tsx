@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext, forwardRef } from 'react';
 
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 import { Label } from '@radix-ui/react-label';
@@ -12,7 +12,7 @@ export const BaseDropdown = ({ name }: { name: string }) => {
     const { parameters, updateDropdownParameterValue } = useContext(ParameterContext)
 
     // 対応するパラメータを見つけ、その値を設定します。
-    const parameter = parameters.find((param) => param.name === name && param.type === "dropdown") as DropdownParameter | undefined
+    const parameter = parameters.find((param) => "name" in param && param.name === name && param.type === "dropdown") as DropdownParameter | undefined
 
     if (!parameter) {
         return null
@@ -21,7 +21,7 @@ export const BaseDropdown = ({ name }: { name: string }) => {
         <>
             <SelectLabel htmlFor={parameter.label}>{parameter.label}</SelectLabel>
             <Select.Root defaultValue='DG9-01' onValueChange={(value) => { updateDropdownParameterValue(name, value) }}>
-                <SelectTrigger id={parameter.label} aria-label={parameter.label} disabled={parameter.disabled}>
+                <SelectTrigger id={parameter.label} aria-label={parameter.label}>
                     <Select.Value />
                     <SelectIcon>
                         <ChevronDownIcon />
@@ -57,7 +57,7 @@ const SelectLabel = styled(Label, {
     fontWeight: 500,
     marginBottom: 5,
     display: 'block',
-    color: "$lightgray",
+    color: "$darkgray",
 });
 
 const SelectTrigger = styled(Select.SelectTrigger, {
@@ -96,7 +96,7 @@ const SelectViewport = styled(Select.Viewport, {
     padding: 5,
 });
 
-const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(({ children, ...props }, ref) => {
+const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(({ children, ...props }, ref) => {
     return (
         <StyledItem {...props} ref={ref}>
             <Select.ItemText>{children}</Select.ItemText>
