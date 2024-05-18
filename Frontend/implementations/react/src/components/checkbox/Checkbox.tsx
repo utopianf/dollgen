@@ -4,22 +4,33 @@ import * as _Checkbox from '@radix-ui/react-checkbox';
 import { CheckIcon } from '@radix-ui/react-icons';
 
 import { styled } from '../../core/stitches';
-import ParameterContext, { CheckboxParameter } from '../parameter/ParameterProvider';
+import ParameterContext, {
+    CheckboxParameter
+} from '../parameter/ParameterProvider';
 
 interface BaseCheckboxProps {
-    label: string
-    checked?: boolean
-    setChecked?: (checked: boolean) => void
+    label: string;
+    checked?: boolean;
+    setChecked?: (checked: boolean) => void;
 }
 
 interface CheckboxGroupProps {
-    name: string
+    name: string;
 }
 
-export const BaseCheckbox = ({ label, checked, setChecked }: BaseCheckboxProps) => (
+export const BaseCheckbox = ({
+    label,
+    checked,
+    setChecked
+}: BaseCheckboxProps) => (
     <form>
         <Flex css={{ alignItems: 'center' }}>
-            <CheckboxRoot defaultChecked id="c1" checked={checked} onCheckedChange={setChecked}>
+            <CheckboxRoot
+                defaultChecked
+                id="c1"
+                checked={checked}
+                onCheckedChange={setChecked}
+            >
                 <CheckboxIndicator>
                     <CheckIcon />
                 </CheckboxIndicator>
@@ -32,19 +43,28 @@ export const BaseCheckbox = ({ label, checked, setChecked }: BaseCheckboxProps) 
 );
 
 export const Checkbox = ({ name }: CheckboxGroupProps) => {
-    const { parameters, updateCheckboxParameterValue } = useContext(ParameterContext)
-    const parameter = parameters.find((param) => (param.name === name) && (param.type === "checkbox")) as CheckboxParameter
+    const { parameters, updateCheckboxParameterValue } =
+        useContext(ParameterContext);
+    const parameter = parameters.find(
+        (param) => param.name === name && param.type === 'checkbox'
+    ) as CheckboxParameter;
 
     if (!parameter) {
-        return null
+        return null;
     }
     return (
         <>
             <CheckboxLabel>{parameter.label}</CheckboxLabel>
-            <BaseCheckbox label={parameter.label} checked={parameter.checked} setChecked={() => updateCheckboxParameterValue(name, !parameter.checked)} />
+            <BaseCheckbox
+                label={parameter.label}
+                checked={parameter.checked}
+                setChecked={() =>
+                    updateCheckboxParameterValue(name, !parameter.checked)
+                }
+            />
         </>
-    )
-}
+    );
+};
 
 // export const CheckboxGroup = ({ name }: CheckboxGroupProps) => {
 //     const { parameters, updateCheckboxParameterValue } = useContext(ParameterContext)
@@ -68,9 +88,9 @@ export const Checkbox = ({ name }: CheckboxGroupProps) => {
 const CheckboxRoot = styled(_Checkbox.Root, {
     all: 'unset',
     backgroundColor: 'white',
-    width: 18,
-    height: 18,
-    borderRadius: 4,
+    width: 14,
+    height: 14,
+    borderRadius: 2,
     border: `1px solid $darkgray`,
     display: 'flex',
     alignItems: 'center',
@@ -79,32 +99,32 @@ const CheckboxRoot = styled(_Checkbox.Root, {
     // '&:hover': { backgroundColor: violet.violet3 },
     // '&:focus': { boxShadow: `0 0 0 2px black` },
     [`&[data-state=checked]`]: {
-        backgroundColor: '$darkgray',
+        backgroundColor: '$darkgray'
     }
 });
 
 const CheckboxIndicator = styled(_Checkbox.Indicator, {
-    color: "$darkgray",
+    color: '$darkgray',
     [`&[data-state=checked]`]: {
-        color: 'white',
+        color: 'white'
     }
 });
 
 const Label = styled('label', {
     color: '$darkgray',
-    fontSize: 15,
-    lineHeight: 1,
+    fontSize: 14,
+    lineHeight: 1
 });
 
 const Flex = styled('div', { display: 'flex' });
 
 const CheckboxLabel = styled(Label, {
-    fontSize: 13,
+    fontSize: 14,
     lineHeight: 1,
     fontWeight: 500,
     marginBottom: 5,
-    display: 'block',
-})
+    display: 'block'
+});
 // const FlexRow = styled('div', {
 //     display: 'flex',
 //     flexDirection: 'row',

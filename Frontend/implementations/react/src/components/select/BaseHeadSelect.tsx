@@ -52,7 +52,7 @@ const SelectLabel = styled(Label, {
     fontWeight: 500,
     marginBottom: 5,
     display: 'block',
-    color: "$lightgray",
+    color: "$darkgray",
 });
 
 const SelectTrigger = styled(Select.SelectTrigger, {

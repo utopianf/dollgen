@@ -50,6 +50,16 @@ module.exports = {
             filename: 'images/[name][ext]'
           }
         },
+        {
+          test: /\.(woff|woff2|eot|ttf|otf)$/i,
+          use: {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+            },
+          },
+        }
       ],
     },
     resolve: {

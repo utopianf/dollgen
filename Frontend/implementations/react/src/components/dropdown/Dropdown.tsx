@@ -1,27 +1,48 @@
 import { useContext, forwardRef } from 'react';
 
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
+import {
+    CheckIcon,
+    ChevronDownIcon,
+    ChevronUpIcon
+} from '@radix-ui/react-icons';
 import { Label } from '@radix-ui/react-label';
 import * as Select from '@radix-ui/react-select';
 import { SelectItemProps } from '@radix-ui/react-select';
 
-import { styled } from '../../core/stitches'
-import ParameterContext, { DropdownParameter } from '../parameter/ParameterProvider';
+import { styled } from '../../core/stitches';
+import ParameterContext, {
+    DropdownParameter
+} from '../parameter/ParameterProvider';
 
 export const BaseDropdown = ({ name }: { name: string }) => {
-    const { parameters, updateDropdownParameterValue } = useContext(ParameterContext)
+    const { parameters, updateDropdownParameterValue } =
+        useContext(ParameterContext);
 
     // 対応するパラメータを見つけ、その値を設定します。
-    const parameter = parameters.find((param) => "name" in param && param.name === name && param.type === "dropdown") as DropdownParameter | undefined
+    const parameter = parameters.find(
+        (param) =>
+            'name' in param && param.name === name && param.type === 'dropdown'
+    ) as DropdownParameter | undefined;
 
     if (!parameter) {
-        return null
+        return null;
     }
     return (
         <>
-            <SelectLabel htmlFor={parameter.label}>{parameter.label}</SelectLabel>
-            <Select.Root defaultValue='DG9-01' onValueChange={(value) => { updateDropdownParameterValue(name, value) }}>
-                <SelectTrigger id={parameter.label} aria-label={parameter.label}>
+            <SelectLabel htmlFor={parameter.label}>
+                {parameter.label}
+            </SelectLabel>
+            <Select.Root
+                defaultValue={parameter.value.toString()}
+                onValueChange={(value) => {
+                    updateDropdownParameterValue(name, value);
+                }}
+                disabled={parameter.disabled}
+            >
+                <SelectTrigger
+                    id={parameter.label}
+                    aria-label={parameter.label}
+                >
                     <Select.Value />
                     <SelectIcon>
                         <ChevronDownIcon />
@@ -35,10 +56,14 @@ export const BaseDropdown = ({ name }: { name: string }) => {
                         <SelectViewport>
                             {parameter.items.map((item, index) => {
                                 return (
-                                    <SelectItem key={index} value={item.value.toString()}>{item.label}</SelectItem>
-                                )
-                            }
-                            )}
+                                    <SelectItem
+                                        key={index}
+                                        value={item.value.toString()}
+                                    >
+                                        {item.label}
+                                    </SelectItem>
+                                );
+                            })}
                         </SelectViewport>
                         <SelectScrollDownButton>
                             <ChevronDownIcon />
@@ -48,16 +73,15 @@ export const BaseDropdown = ({ name }: { name: string }) => {
             </Select.Root>
         </>
     );
-}
-
+};
 
 const SelectLabel = styled(Label, {
-    fontSize: 13,
+    fontSize: 14,
     lineHeight: 1,
     fontWeight: 500,
     marginBottom: 5,
     display: 'block',
-    color: "$darkgray",
+    color: '$darkgray'
 });
 
 const SelectTrigger = styled(Select.SelectTrigger, {
@@ -67,13 +91,13 @@ const SelectTrigger = styled(Select.SelectTrigger, {
     justifyContent: 'space-between',
     borderRadius: 4,
     padding: '0 15px',
-    fontSize: 13,
+    fontSize: 14,
     lineHeight: 1,
     height: '32px',
     width: '176px',
     gap: 5,
     backgroundColor: 'white',
-    border: `1px solid $darkgray`,
+    border: `1px solid $darkgray`
     // color: violet.violet11,
     // '&:hover': { backgroundColor: mauve.mauve3 },
     // '&[data-placeholder]': { color: violet.violet9 },
@@ -81,7 +105,7 @@ const SelectTrigger = styled(Select.SelectTrigger, {
 
 const SelectIcon = styled(Select.SelectIcon, {
     // color: violet.violet11,
-    borderColor: '$darkgray',
+    borderColor: '$darkgray'
 });
 
 const SelectContent = styled(Select.Content, {
@@ -89,29 +113,30 @@ const SelectContent = styled(Select.Content, {
     backgroundColor: 'white',
     borderRadius: 6,
     boxShadow:
-        '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
+        '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)'
 });
 
 const SelectViewport = styled(Select.Viewport, {
-    padding: 5,
+    padding: 5
 });
 
-const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(({ children, ...props }, ref) => {
-    return (
-        <StyledItem {...props} ref={ref}>
-            <Select.ItemText>{children}</Select.ItemText>
-            <StyledItemIndicator>
-                <CheckIcon />
-            </StyledItemIndicator>
-        </StyledItem>
-    );
-});
-
+const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
+    ({ children, ...props }, ref) => {
+        return (
+            <StyledItem {...props} ref={ref}>
+                <Select.ItemText>{children}</Select.ItemText>
+                <StyledItemIndicator>
+                    <CheckIcon />
+                </StyledItemIndicator>
+            </StyledItem>
+        );
+    }
+);
 
 const StyledItem = styled(Select.Item, {
-    fontSize: 13,
+    fontSize: 14,
     lineHeight: 1,
-    color: "$",
+    color: '$',
     borderRadius: 3,
     display: 'flex',
     alignItems: 'center',
@@ -122,16 +147,15 @@ const StyledItem = styled(Select.Item, {
 
     '&[data-disabled]': {
         // color: mauve.mauve8,
-        pointerEvents: 'none',
+        pointerEvents: 'none'
     },
 
     '&[data-highlighted]': {
-        outline: 'none',
+        outline: 'none'
         // backgroundColor: violet.violet9,
         // color: violet.violet1,
-    },
+    }
 });
-
 
 const StyledItemIndicator = styled(Select.ItemIndicator, {
     position: 'absolute',
@@ -139,7 +163,7 @@ const StyledItemIndicator = styled(Select.ItemIndicator, {
     width: 25,
     display: 'inline-flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
 });
 
 const scrollButtonStyles = {
@@ -149,11 +173,14 @@ const scrollButtonStyles = {
     height: 25,
     backgroundColor: 'white',
     // color: "$ultradarkgray",
-    cursor: 'default',
+    cursor: 'default'
 };
 
 const SelectScrollUpButton = styled(Select.ScrollUpButton, scrollButtonStyles);
 
-const SelectScrollDownButton = styled(Select.ScrollDownButton, scrollButtonStyles);
+const SelectScrollDownButton = styled(
+    Select.ScrollDownButton,
+    scrollButtonStyles
+);
 
 export default BaseDropdown;

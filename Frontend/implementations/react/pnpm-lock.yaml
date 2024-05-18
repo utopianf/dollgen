@@ -50,6 +50,9 @@ dependencies:
   '@react-stately/color':
     specifier: ^3.5.1
     version: 3.6.0(react@18.3.1)
+  '@spectrum-icons/workflow':
+    specifier: ^4.2.11
+    version: 4.2.11(@react-spectrum/provider@3.9.6)(react-dom@18.3.1)(react@18.3.1)
   '@stitches/react':
     specifier: ^1.2.8
     version: 1.2.8(react@18.3.1)
@@ -60,13 +63,13 @@ dependencies:
     specifier: ^3.3.2
     version: 3.3.2
   react:
-    specifier: ^18.2.0
+    specifier: 18.3.1
     version: 18.3.1
   react-csv:
     specifier: ^2.2.2
     version: 2.2.2
   react-dom:
-    specifier: ^18.2.0
+    specifier: 18.3.1
     version: 18.3.1(react@18.3.1)
   react-helmet:
     specifier: ^6.1.0
@@ -101,11 +104,14 @@ devDependencies:
     specifier: ^20.11.0
     version: 20.12.11
   '@types/react':
-    specifier: ^18.2.47
+    specifier: ^18.3.2
     version: 18.3.2
   '@types/react-dom':
-    specifier: ^18.2.18
+    specifier: ^18.3.0
     version: 18.3.0
+  '@types/react-helmet':
+    specifier: ^6.1.11
+    version: 6.1.11
   css-loader:
     specifier: ^6.7.3
     version: 6.11.0(webpack@5.91.0)
@@ -118,6 +124,12 @@ devDependencies:
   eslint-plugin-unused-imports:
     specifier: ^3.2.0
     version: 3.2.0(eslint@8.57.0)
+  file-loader:
+    specifier: ^6.2.0
+    version: 6.2.0(webpack@5.91.0)
+  html-bundler-webpack-plugin:
+    specifier: ^3.11.0
+    version: 3.11.0(webpack@5.91.0)
   html-loader:
     specifier: ^4.2.0
     version: 4.2.0(webpack@5.91.0)
@@ -127,6 +139,9 @@ devDependencies:
   path:
     specifier: ^0.12.7
     version: 0.12.7
+  prettier:
+    specifier: ^3.2.5
+    version: 3.2.5
   ts-loader:
     specifier: ^9.4.2
     version: 9.5.1(typescript@5.4.5)(webpack@5.91.0)
@@ -154,6 +169,16 @@ packages:
 
   /@adobe/react-spectrum-ui@1.2.0(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-os3EdjfyJbrukLcZ5uYtdFRiDlLB3zq2JoXp19J/IDpZ8btibJeRZYSwjL+LscEiT2pOYaF2McMQdkZTIwnllw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
+
+  /@adobe/react-spectrum-workflow@2.3.4(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-XPLzIBl58HdLF9WIPB7RDAvVXvCE3SjG+HaWQhW2P9MnxSz1DEA9O7mlTlYblJkMbfk10T/+RFaSupc1yoN+TA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0
@@ -3942,6 +3967,21 @@ packages:
       - react-dom
     dev: false
 
+  /@spectrum-icons/workflow@4.2.11(@react-spectrum/provider@3.9.6)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-ALKjJH1AGaUMNZOasnXw2A8SucB6w2wzCxp7j+ZUcX0Pg1PsAY+JFK+uR7hwr3iu4T1l0WkZsKxR/FTjhsPWLg==}
+    peerDependencies:
+      '@react-spectrum/provider': ^3.0.0
+      react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0
+    dependencies:
+      '@adobe/react-spectrum-workflow': 2.3.4(react-dom@18.3.1)(react@18.3.1)
+      '@react-spectrum/icon': 3.7.12(@react-spectrum/provider@3.9.6)(react@18.3.1)
+      '@react-spectrum/provider': 3.9.6(react-dom@18.3.1)(react@18.3.1)
+      '@swc/helpers': 0.5.11
+      react: 18.3.1
+    transitivePeerDependencies:
+      - react-dom
+    dev: false
+
   /@stitches/react@1.2.8(react@18.3.1):
     resolution: {integrity: sha512-9g9dWI4gsSVe8bNLlb+lMkBYsnIKCZTmvqvDG+Avnn69XfmHZKiaMrx7cgTaddq7aTPPmXiTsbFcUy0xgI4+wA==}
     peerDependencies:
@@ -4278,6 +4318,10 @@ packages:
   /@types/html-minifier-terser@6.1.0:
     resolution: {integrity: sha512-oh/6byDPnL1zeNXFrDXFLyZjkr1MsBG667IM792caf1L2UPOOMf65NFzjUH/ltyfwjAGfs1rsX1eftK0jC/KIg==}
 
+  /@types/html-minifier-terser@7.0.2:
+    resolution: {integrity: sha512-mm2HqV22l8lFQh4r2oSsOEVea+m0qqxEmwpc9kC1p/XzmjLWrReR9D/GRs8Pex2NX/imyEH9c5IU/7tMBQCHOA==}
+    dev: true
+
   /@types/http-errors@2.0.4:
     resolution: {integrity: sha512-D0CFMMtydbJAegzOyHjtiKPLlvnm3iTZyZRSZoLq2mRhDdmLfIWOCYPfQJ4cu2erKghU++QvjcUjp/5h7hESpA==}
 
@@ -4350,6 +4394,12 @@ packages:
     resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
     dependencies:
       '@types/react': 18.3.2
+
+  /@types/react-helmet@6.1.11:
+    resolution: {integrity: sha512-0QcdGLddTERotCXo3VFlUSWO3ztraw8nZ6e3zJSgG7apwV5xt+pJUS8ewPBqT4NYB1optGLprNQzFleIY84u/g==}
+    dependencies:
+      '@types/react': 18.3.2
+    dev: true
 
   /@types/react@18.3.2:
     resolution: {integrity: sha512-Btgg89dAnqD4vV7R3hlwOxgqobUQKgx3MmrQRi0yYbs/P0ym8XozIAlkqVilPqHQwXs4e9Tf63rrCgl58BcO4w==}
@@ -4975,6 +5025,11 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
+  /ansis@2.0.3:
+    resolution: {integrity: sha512-tcSGX0mhuDFHsgRrT56xnZ9v2X+TOeKhJ75YopI5OBgyT7tGaG5m6BmeC+6KHjiucfBvUHehQMecHbULIAkFPA==}
+    engines: {node: '>=12.13'}
+    dev: true
+
   /any-promise@1.3.0:
     resolution: {integrity: sha512-7UvmKalWRt1wgjL1RrGxoSJW/0QZFIegpeGvZG9kjp8vrRu55XTHbwnqq2GpXm9uLbcuhxm3IqX9OB4MZR1b2A==}
     dev: false
@@ -5368,7 +5423,6 @@ packages:
 
   /big.js@5.2.2:
     resolution: {integrity: sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==}
-    dev: false
 
   /binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
@@ -6350,7 +6404,6 @@ packages:
   /emojis-list@3.0.0:
     resolution: {integrity: sha512-/kyM18EfinwXZbno9FyUGeFh87KC8HRQBQGildHZbEuRyWFOmv1U10o9BBp8XVZDVNNuQKyIGIu5ZYAAXJ0V2Q==}
     engines: {node: '>= 4'}
-    dev: false
 
   /encodeurl@1.0.2:
     resolution: {integrity: sha512-TPJXq8JqFaVYm2CWmPvnP2Iyo4ZSM7/QKcSmuMLDObfpH5fi7RUGmd/rTDf+rut/saiDiQEeVTNgAmJEdAOx0w==}
@@ -6944,6 +6997,11 @@ packages:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
 
+  /eta@3.4.0:
+    resolution: {integrity: sha512-tCsc7WXTjrTx4ZjYLplcqrI3o4mYJ+Z6YspeuGL8tbt/hHoMchwBwtKfwM09svEY86iRapY93vUqQttcNuIO5Q==}
+    engines: {node: '>=6.0.0'}
+    dev: true
+
   /etag@1.8.1:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
@@ -7093,7 +7151,6 @@ packages:
       loader-utils: 2.0.4
       schema-utils: 3.3.0
       webpack: 5.91.0(webpack-cli@5.1.4)
-    dev: false
 
   /filelist@1.0.4:
     resolution: {integrity: sha512-w1cEuf3S+DrLCQL7ET6kz+gmlJdbq9J7yXCSjK/OZCPA+qEN1WyF4ZAf0YYJa4/shHJra2t/d/r8SV4Ji+x+8Q==}
@@ -7503,6 +7560,54 @@ packages:
       obuf: 1.1.2
       readable-stream: 2.3.8
       wbuf: 1.7.3
+
+  /html-bundler-webpack-plugin@3.11.0(webpack@5.91.0):
+    resolution: {integrity: sha512-ARRGyIRdW8CO6gbGbm+BA+72Wbqx3cJqGh2ooMjarqZj7bZVvvlTk6bDMGcu4mn8WK8hMZCwKDtZM6C6te+UZg==}
+    engines: {node: '>=14.21.0'}
+    peerDependencies:
+      ejs: '>=3.1.9'
+      favicons: '>=7.1.4'
+      handlebars: '>=4.7.7'
+      liquidjs: '>=10.7.0'
+      markdown-it: '>=12'
+      mustache: '>=4.2.0'
+      nunjucks: '>=3.2.3'
+      parse5: '>=7.1.2'
+      prismjs: '>=1.29.0'
+      pug: '>=3.0.2'
+      twig: '>=1.17.1'
+      webpack: '>=5.32.0'
+    peerDependenciesMeta:
+      ejs:
+        optional: true
+      favicons:
+        optional: true
+      handlebars:
+        optional: true
+      liquidjs:
+        optional: true
+      markdown-it:
+        optional: true
+      mustache:
+        optional: true
+      nunjucks:
+        optional: true
+      parse5:
+        optional: true
+      prismjs:
+        optional: true
+      pug:
+        optional: true
+      twig:
+        optional: true
+    dependencies:
+      '@types/html-minifier-terser': 7.0.2
+      ansis: 2.0.3
+      enhanced-resolve: 5.16.1
+      eta: 3.4.0
+      html-minifier-terser: 7.2.0
+      webpack: 5.91.0(webpack-cli@5.1.4)
+    dev: true
 
   /html-encoding-sniffer@2.0.1:
     resolution: {integrity: sha512-D5JbOMBIR/TVZkubHT+OyT2705QvogUW4IBn6nHd756OwieSF9aDYFj4dv6HHEVGYbHaLETa3WggZYWWMyy3ZQ==}
@@ -8859,7 +8964,6 @@ packages:
       big.js: 5.2.2
       emojis-list: 3.0.0
       json5: 2.2.3
-    dev: false
 
   /loader-utils@3.2.1:
     resolution: {integrity: sha512-ZvFw1KWS3GVyYBYb7qkmRM/WwL2TQQBxgCK62rlvm4WpVQ23Nb4tYjApUlfjrEGvOs7KHEsmyUn75OHZrJMWPw==}
@@ -10267,6 +10371,12 @@ packages:
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+
+  /prettier@3.2.5:
+    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: true
 
   /pretty-bytes@5.6.0:
     resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}

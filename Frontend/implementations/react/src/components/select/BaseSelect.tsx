@@ -1,27 +1,47 @@
 import React, { useContext } from 'react';
 
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
+import {
+    CheckIcon,
+    ChevronDownIcon,
+    ChevronUpIcon
+} from '@radix-ui/react-icons';
 import { Label } from '@radix-ui/react-label';
 import * as _Select from '@radix-ui/react-select';
 import { SelectItemProps } from '@radix-ui/react-select';
 
-import { styled } from '../../core/stitches'
-import ParameterContext, { DropdownParameter } from '../parameter/ParameterProvider';
+import { styled } from '../../core/stitches';
+import ParameterContext, {
+    DropdownParameter
+} from '../parameter/ParameterProvider';
 
 export const Select = ({ name }: { name: string }) => {
-    const { parameters, updateDropdownParameterValue } = useContext(ParameterContext)
+    const { parameters, updateDropdownParameterValue } =
+        useContext(ParameterContext);
 
     // 対応するパラメータを見つけ、その値を設定します。
-    const parameter = parameters.find((param) => param.name === name && param.type === "dropdown") as DropdownParameter | undefined
+    const parameter = parameters.find(
+        (param) => param.name === name && param.type === 'dropdown'
+    ) as DropdownParameter | undefined;
 
     if (!parameter) {
-        return null
+        return null;
     }
     return (
         <>
-            <SelectLabel htmlFor={parameter.label}>{parameter.label}</SelectLabel>
-            <_Select.Root defaultValue='DG9-01' onValueChange={(value) => { updateDropdownParameterValue(name, value) }}>
-                <SelectTrigger id={parameter.label} aria-label={parameter.label} disabled={parameter.disabled}>
+            <SelectLabel htmlFor={parameter.label}>
+                {parameter.label}
+            </SelectLabel>
+            <_Select.Root
+                defaultValue={parameter.value.toString()}
+                onValueChange={(value) => {
+                    updateDropdownParameterValue(name, value);
+                }}
+            >
+                <SelectTrigger
+                    id={parameter.label}
+                    aria-label={parameter.label}
+                    disabled={parameter.disabled}
+                >
                     <_Select.Value />
                     <SelectIcon>
                         <ChevronDownIcon />
@@ -35,10 +55,14 @@ export const Select = ({ name }: { name: string }) => {
                         <SelectViewport>
                             {parameter.items.map((item, index) => {
                                 return (
-                                    <SelectItem key={index} value={item.value.toString()}>{item.label}</SelectItem>
-                                )
-                            }
-                            )}
+                                    <SelectItem
+                                        key={index}
+                                        value={item.value.toString()}
+                                    >
+                                        {item.label}
+                                    </SelectItem>
+                                );
+                            })}
                         </SelectViewport>
                         <SelectScrollDownButton>
                             <ChevronDownIcon />
@@ -48,8 +72,7 @@ export const Select = ({ name }: { name: string }) => {
             </_Select.Root>
         </>
     );
-}
-
+};
 
 const SelectLabel = styled(Label, {
     fontSize: 13,
@@ -57,7 +80,7 @@ const SelectLabel = styled(Label, {
     fontWeight: 500,
     marginBottom: 5,
     display: 'block',
-    color: "$lightgray",
+    color: '$darkgray'
 });
 
 const SelectTrigger = styled(_Select.SelectTrigger, {
@@ -73,7 +96,7 @@ const SelectTrigger = styled(_Select.SelectTrigger, {
     width: '176px',
     gap: 5,
     backgroundColor: 'white',
-    border: `1px solid $darkgray`,
+    border: `1px solid $darkgray`
     // color: violet.violet11,
     // '&:hover': { backgroundColor: mauve.mauve3 },
     // '&[data-placeholder]': { color: violet.violet9 },
@@ -81,7 +104,7 @@ const SelectTrigger = styled(_Select.SelectTrigger, {
 
 const SelectIcon = styled(_Select.SelectIcon, {
     // color: violet.violet11,
-    borderColor: '$darkgray',
+    borderColor: '$darkgray'
 });
 
 const SelectContent = styled(_Select.Content, {
@@ -89,29 +112,30 @@ const SelectContent = styled(_Select.Content, {
     backgroundColor: 'white',
     borderRadius: 6,
     boxShadow:
-        '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
+        '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)'
 });
 
 const SelectViewport = styled(_Select.Viewport, {
-    padding: 5,
+    padding: 5
 });
 
-const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(({ children, ...props }, ref) => {
-    return (
-        <StyledItem {...props} ref={ref}>
-            <_Select.ItemText>{children}</_Select.ItemText>
-            <StyledItemIndicator>
-                <CheckIcon />
-            </StyledItemIndicator>
-        </StyledItem>
-    );
-});
-
+const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
+    ({ children, ...props }, ref) => {
+        return (
+            <StyledItem {...props} ref={ref}>
+                <_Select.ItemText>{children}</_Select.ItemText>
+                <StyledItemIndicator>
+                    <CheckIcon />
+                </StyledItemIndicator>
+            </StyledItem>
+        );
+    }
+);
 
 const StyledItem = styled(_Select.Item, {
     fontSize: 13,
     lineHeight: 1,
-    color: "$",
+    color: '$',
     borderRadius: 3,
     display: 'flex',
     alignItems: 'center',
@@ -122,16 +146,15 @@ const StyledItem = styled(_Select.Item, {
 
     '&[data-disabled]': {
         // color: mauve.mauve8,
-        pointerEvents: 'none',
+        pointerEvents: 'none'
     },
 
     '&[data-highlighted]': {
-        outline: 'none',
+        outline: 'none'
         // backgroundColor: violet.violet9,
         // color: violet.violet1,
-    },
+    }
 });
-
 
 const StyledItemIndicator = styled(_Select.ItemIndicator, {
     position: 'absolute',
@@ -139,7 +162,7 @@ const StyledItemIndicator = styled(_Select.ItemIndicator, {
     width: 25,
     display: 'inline-flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
 });
 
 const scrollButtonStyles = {
@@ -149,9 +172,12 @@ const scrollButtonStyles = {
     height: 25,
     backgroundColor: 'white',
     // color: "$ultradarkgray",
-    cursor: 'default',
+    cursor: 'default'
 };
 
 const SelectScrollUpButton = styled(_Select.ScrollUpButton, scrollButtonStyles);
 
-const SelectScrollDownButton = styled(_Select.ScrollDownButton, scrollButtonStyles);
+const SelectScrollDownButton = styled(
+    _Select.ScrollDownButton,
+    scrollButtonStyles
+);

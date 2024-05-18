@@ -5,6 +5,7 @@
     "parserOptions": {
         "sourceType": "module",
         "project": "./tsconfig.json",
+        "tsconfigRootDir": ".",
         "EXPERIMENTAL_useSourceOfProjectReferenceRedirect": true
     },
     "env": {

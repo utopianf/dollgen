@@ -8,9 +8,11 @@
         "moduleResolution": "node",
         "sourceMap": false,
         "allowJs": true,
-        "declaration": false,
-        "jsx": "react-jsx"
+        "declaration": true,
+        "jsx": "react-jsx",
+        "resolveJsonModule": true,
+        "typeRoots": ["./node_modules/@types", "src/declarations.d.ts"]
     },
     "lib": ["es2015"],
-    "include": ["./src/**/*.tsx"]
+    "include": ["./src/**/*.tsx", "./declarations.d.ts"]
 }

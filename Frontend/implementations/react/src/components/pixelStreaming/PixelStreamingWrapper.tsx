@@ -10,6 +10,10 @@ import {
 } from '@epicgames-ps/lib-pixelstreamingfrontend-ue5.2';
 
 import { PixelStreamingContext } from './PixelStreamingProvider';
+import { styled } from '../../core/stitches';
+import { GridCheckbox } from '../checkbox/GridCheckbox';
+import { MakeupCheckbox } from '../checkbox/MakeupCheckbox';
+import { CameraDropdown } from '../dropdown/CameraDropdown';
 import ParameterContext from '../parameter/ParameterProvider';
 import { PitchSlider } from '../slider/PitchSlider';
 import { YawSlider } from '../slider/YawSlider';
@@ -22,20 +26,25 @@ export interface PixelStreamingWrapperProps {
 export const PixelStreamingWrapper = ({
     initialSettings
 }: PixelStreamingWrapperProps) => {
-    const { init } = useContext(ParameterContext)
+    const { init } = useContext(ParameterContext);
     // A reference to parent div element that the Pixel Streaming library attaches into:
     const videoParent = useRef<HTMLDivElement>(null);
 
     // Pixel streaming library instance is stored into this state variable after initialization:
-    const { pixelStreaming, setPixelStreaming } = useContext(PixelStreamingContext)
+    const { pixelStreaming, setPixelStreaming } = useContext(
+        PixelStreamingContext
+    );
 
     // A boolean state variable that determines if the Click to play overlay is shown:
-    const [clickToPlayVisible, setClickToPlayVisible] = useState(false);
+    const [clickToPlayVisible, setClickToPlayVisible] = useState(true);
 
     // Run on component mount:
     useEffect(() => {
         if (videoParent.current) {
-            console.log('PixelStreamingWrapper: videoParent.current', videoParent.current)
+            console.log(
+                'PixelStreamingWrapper: videoParent.current',
+                videoParent.current
+            );
             // Attach Pixel Streaming library to videoParent element:
             const config = new Config({ initialSettings });
             const streaming = new PixelStreaming(config, {
@@ -47,20 +56,34 @@ export const PixelStreamingWrapper = ({
                 setClickToPlayVisible(true);
             });
 
-            streaming.addResponseEventListener('responseListener', (response) => {
-                Logger.Log(Logger.GetStackTrace(), `Response received: ${response}`, Logger.verboseLogLevel);
-                Logger.Log(Logger.GetStackTrace(), `Parsed Parameters: ${JSON.parse(response).parameters}`, Logger.verboseLogLevel);
-                init(JSON.parse(response).parameters)
-            });
+            streaming.addResponseEventListener(
+                'responseListener',
+                (response) => {
+                    Logger.Log(
+                        Logger.GetStackTrace(),
+                        `Response received: ${response}`,
+                        Logger.verboseLogLevel
+                    );
+                    Logger.Log(
+                        Logger.GetStackTrace(),
+                        `Parsed Parameters: ${JSON.parse(response).parameters}`,
+                        Logger.verboseLogLevel
+                    );
+                    init(JSON.parse(response).parameters);
+                }
+            );
 
             // Save the library instance into component state so that it can be accessed later:
             setPixelStreaming(streaming);
+            streaming.emitUIInteraction({
+                command: 'init'
+            });
 
             // Clean up on component unmount:
             return () => {
                 try {
                     streaming.disconnect();
-                } catch { }
+                } catch {}
             };
         }
     }, []);
@@ -97,16 +120,30 @@ export const PixelStreamingWrapper = ({
                         if (clickToPlayVisible && pixelStreaming) {
                             pixelStreaming.play();
                             setClickToPlayVisible(false);
-                            pixelStreaming.emitUIInteraction({ command: "init" })
+                            pixelStreaming.emitUIInteraction({
+                                command: 'init'
+                            });
                         }
                     }}
                 >
                     <div>Click to play</div>
                 </div>
             )}
-            <YawSlider />
+
+            <CameraOptionLabel>視点操作</CameraOptionLabel>
             <PitchSlider />
+            <YawSlider />
             <ZoomSlider />
+            <GridCheckbox />
+            <MakeupCheckbox />
+            <CameraDropdown />
         </div>
     );
 };
+
+const CameraOptionLabel = styled('div', {
+    position: 'absolute',
+    bottom: '280px',
+    right: '74.5px',
+    fontSize: 14
+});
