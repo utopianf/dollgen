@@ -52,9 +52,9 @@ export const YawSlider = () => {
 };
 
 const SliderContainer = styled('form', {
-    position: 'absolute',
-    bottom: '178px',
-    right: '5px',
+    position: 'relative',
+    // bottom: '178px',
+    // right: '5px',
     width: '200px',
     height: '47px',
     display: 'flex',

@@ -63,7 +63,7 @@ export const App = () => {
                                 <SaveTo />
                                 Save
                             </Button>
-                            <Button>
+                            <Button borderColor="black">
                                 <ShoppingCart />
                                 Send to cart
                             </Button>
@@ -76,6 +76,16 @@ export const App = () => {
 };
 
 const Button = styled('button', {
+    variants: {
+        borderColor: {
+            default: {
+                borderColor: '$superlightgray'
+            },
+            black: {
+                borderColor: '#222222'
+            }
+        }
+    },
     backgroundColor: '$white 0% 0% no-repeat padding-box',
     color: '$basicblack',
     border: '2px solid $superlightgray',
@@ -126,7 +136,6 @@ const SystemButtonsContainer = styled('div', {
     height: '40px',
     flexDirection: 'row',
     marginTop: '15px',
-    gap: '10px',
     position: 'absolute',
     left: '900px',
     bottom: '0',

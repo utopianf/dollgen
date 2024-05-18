@@ -37,8 +37,8 @@ const MakeupCheckboxContainer = styled('div', {
     gap: 15,
     marginTop: 10,
     marginBottom: 10,
-    fontSize: 14,
-    position: 'absolute',
-    bottom: '70px',
-    right: '5px'
+    fontSize: 14
+    // position: 'absolute',
+    // bottom: '70px',
+    // right: '5px'
 });

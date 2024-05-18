@@ -38,7 +38,10 @@ const GridCheckboxContainer = styled('div', {
     marginTop: 10,
     marginBottom: 10,
     fontSize: 14,
-    position: 'absolute',
-    bottom: '90px',
-    right: '5px'
+    textAlign: 'left',
+    font: 'normal normal normal 14px/17px Adobe Clean Han',
+    letterSpacing: 0
+    // position: 'absolute',
+    // bottom: '90px',
+    // right: '5px'
 });

@@ -130,20 +130,34 @@ export const PixelStreamingWrapper = ({
                 </div>
             )}
 
-            <CameraOptionLabel>視点操作</CameraOptionLabel>
-            <PitchSlider />
-            <YawSlider />
-            <ZoomSlider />
-            <GridCheckbox />
-            <MakeupCheckbox />
-            <CameraDropdown />
+            <InStreamingControls>
+                <CameraOptionLabel>視点操作</CameraOptionLabel>
+                <PitchSlider />
+                <YawSlider />
+                <ZoomSlider />
+                <GridCheckbox />
+                <MakeupCheckbox />
+                <CameraDropdown />
+            </InStreamingControls>
         </div>
     );
 };
 
 const CameraOptionLabel = styled('div', {
-    position: 'absolute',
-    bottom: '280px',
-    right: '74.5px',
+    // position: 'absolute',
+    // bottom: '280px',
+    // right: '74.5px',
+    alignSelf: 'center',
     fontSize: 14
+});
+
+const InStreamingControls = styled('div', {
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'absolute',
+    bottom: '0',
+    right: '0',
+    gap: 0,
+    width: '200px',
+    backgroundColor: '#f0000070'
 });

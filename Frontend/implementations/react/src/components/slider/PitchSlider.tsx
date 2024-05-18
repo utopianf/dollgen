@@ -52,9 +52,9 @@ export const PitchSlider = () => {
 };
 
 const SliderContainer = styled('form', {
-    position: 'absolute',
-    bottom: '226px',
-    right: '5px',
+    position: 'relative',
+    // bottom: '226px',
+    // right: '5px',
     width: '200px',
     height: '47px',
     display: 'flex',
